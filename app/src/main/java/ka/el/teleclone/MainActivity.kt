@@ -2,6 +2,9 @@ package ka.el.teleclone
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -10,6 +13,7 @@ import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ka.el.teleclone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -103,6 +107,13 @@ class MainActivity : AppCompatActivity() {
                                 .withSelectable(false)
                                 .withIcon(R.drawable.ic_question),
                         )
+                .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener{
+                    override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
+                        Log.d("TAG", "Identifier: ${drawerItem.identifier}")
+                        return false
+                    }
+
+                })
                 .build()
     }
 
