@@ -7,6 +7,7 @@ import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
+import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import ka.el.teleclone.databinding.ActivityMainBinding
@@ -85,6 +86,8 @@ class MainActivity : AppCompatActivity() {
                                 .withName(R.string.settings)
                                 .withSelectable(false)
                                 .withIcon(R.drawable.ic_settings),
+
+                        DividerDrawerItem(),
 
                         PrimaryDrawerItem()
                                 .withIdentifier(106)
