@@ -47,9 +47,59 @@ class MainActivity : AppCompatActivity() {
                         PrimaryDrawerItem()
                                 .withIdentifier(100)
                                 .withIconTintingEnabled(true)
-                                .withName("Создать группу")
+                                .withName(R.string.create_group)
                                 .withSelectable(false)
-                )
+                                .withIcon(R.drawable.ic_group),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(101)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.create_secret_chat)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_lock),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(102)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.contacts)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_contact),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(103)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.calls)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_call),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(104)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.favorites)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_favorite),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(105)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.settings)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_settings),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(106)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.invite_friends)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_add_user),
+
+                        PrimaryDrawerItem()
+                                .withIdentifier(107)
+                                .withIconTintingEnabled(true)
+                                .withName(R.string.questions)
+                                .withSelectable(false)
+                                .withIcon(R.drawable.ic_question),
+                        )
                 .build()
     }
 

@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Teleclone</string>
+
+
+    <string name="create_group">Создать группу</string>
+    <string name="create_secret_chat">Создать секретный чат</string>
+    <string name="create_channel">Создать канал</string>
+    <string name="contacts">Контакты</string>
+    <string name="calls">Звонки</string>
+    <string name="favorites">Избранное</string>
+    <string name="settings">Настройки</string>
+    <string name="invite_friends">Пригласить друзей</string>
+    <string name="questions">Вопросы о Teleclone</string>
 </resources>
