@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="settings_user_info_paddingHorizontal">16dp</dimen>
-    <dimen name="settings_user_info_paddingVertical">40dp</dimen>
+    <dimen name="settings_user_info_paddingVertical">20dp</dimen>
     <dimen name="settings_user_photo_width">55dp</dimen>
     <dimen name="settings_user_photo_height">55dp</dimen>
     <dimen name="settings_user_change_photo_width">45dp</dimen>
@@ -13,4 +13,5 @@
     <dimen name="small_margin">5dp</dimen>
     <dimen name="settings_user_change_photo_margin_end">20dp</dimen>
     <dimen name="small_padding">5dp</dimen>
+    <dimen name="ripple_effect_radius">4dp</dimen>
 </resources>

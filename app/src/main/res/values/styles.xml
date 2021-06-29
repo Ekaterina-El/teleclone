@@ -60,18 +60,23 @@
 
     <style name="settings_btn">
         <item name="android:padding">@dimen/small_padding</item>
-        <item name="android:layout_marginTop">@dimen/normal_margin</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:orientation">vertical</item>
+
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:background">@drawable/ripple_effect</item>
     </style>
 
-    <style name="button_label" parent="normal_text">
+    <style name="button_label" parent="small_text">
         <item name="android:textColor">@color/grey</item>
+
     </style>
 
     <style name="btn_value" parent="normal_text">
         <item name="android:textColor">@color/dark</item>
+
     </style>
 
     <style name="separator">
