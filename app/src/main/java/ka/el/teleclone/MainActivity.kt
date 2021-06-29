@@ -15,6 +15,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ka.el.teleclone.databinding.ActivityMainBinding
+import ka.el.teleclone.ui.ChatFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFunc() {
         setSupportActionBar(mToolbar)
+
+        supportFragmentManager.beginTransaction().replace(R.id.dataContainer, ChatFragment()).commit()
+
         createHeader()
         createDrawer()
     }
