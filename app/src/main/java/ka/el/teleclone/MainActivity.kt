@@ -16,6 +16,7 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.ui.ChatFragment
+import ka.el.teleclone.ui.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -114,6 +115,17 @@ class MainActivity : AppCompatActivity() {
                 .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener{
                     override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
                         Log.d("TAG", "Identifier: ${drawerItem.identifier}")
+
+                        when (drawerItem.identifier) {
+                            105L -> {
+                                supportFragmentManager
+                                    .beginTransaction()
+                                    .addToBackStack(null)
+                                    .replace(R.id.dataContainer, SettingsFragment())
+                                    .commit()
+                            }
+                        }
+
                         return false
                     }
 
