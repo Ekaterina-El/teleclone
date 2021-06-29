@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Teleclone.Light" parent="MaterialDrawerTheme.Light">
+    <style name="Theme.Teleclone.Light" parent="MaterialDrawerTheme">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,6 +14,7 @@
             ?attr/colorPrimaryVariant
         </item>
         <!-- Customize your theme here. -->
+        <item name="android:colorBackground">@color/white</item>
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_background">@color/material_drawer_background</item>
