@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="toolbar">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/purple_500</item>
+    </style>
+
+    <style name="user_info">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/purple_500</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingHorizontal">@dimen/settings_user_info_paddingHorizontal</item>
+        <item name="android:paddingVertical">@dimen/settings_user_info_paddingVertical</item>
+    </style>
+
+    <style name="user_photo">
+        <item name="android:layout_width">@dimen/settings_user_photo_width</item>
+        <item name="android:layout_height">@dimen/settings_user_photo_height</item>
+    </style>
+
+    <style name="user_change_photo">
+        <item name="android:layout_width">@dimen/settings_user_change_photo_width</item>
+        <item name="android:layout_height">@dimen/settings_user_change_photo_height</item>
+        <item name="android:layout_marginEnd">@dimen/settings_user_change_photo_margin_end</item>
+    </style>
+
+    <style name="settings_user_info">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/settings_margin_to_photo</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="large_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="normal_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="small_text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="settings_btn">
+        <item name="android:padding">@dimen/small_padding</item>
+        <item name="android:layout_marginTop">@dimen/normal_margin</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="button_label" parent="normal_text">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="btn_value" parent="normal_text">
+        <item name="android:textColor">@color/dark</item>
+    </style>
+
+    <style name="separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginVertical">@dimen/small_margin</item>
+        <item name="android:background">@color/grey_light</item>
+    </style>
+
+
+</resources>

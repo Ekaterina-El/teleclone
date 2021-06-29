@@ -1,15 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.SettingsFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textColor="@color/black"
-        android:textSize="28sp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/user_info"
+            style="@style/user_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                style="@style/user_photo"
+                android:src="@drawable/default_photo"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="@dimen/settings_user_photo_border_width"
+                tools:ignore="RedundantNamespace" />
+
+            <LinearLayout style="@style/settings_user_info">
+
+                <TextView
+                    style="@style/large_text"
+                    android:text="@string/settings_default_user_name" />
+
+                <TextView
+                    style="@style/small_text"
+                    android:text="@string/settings_default_status" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/camera"
+            style="@style/user_change_photo"
+            android:src="@drawable/ic_camera"
+            app:layout_constraintBottom_toBottomOf="@+id/user_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_info"
+            tools:ignore="RedundantNamespace" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/large_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/user_info">
+
+            <TextView
+                style="@style/large_text"
+                android:text="@string/settings_title_account"
+                android:textColor="@color/purple_500" />
+
+            <!--  Number  -->
+            <LinearLayout style="@style/settings_btn">
+
+                <TextView
+                    style="@style/btn_value"
+                    android:text="@string/settings_default_number" />
+
+                <TextView
+                    style="@style/button_label"
+                    android:text="@string/settings_label_number" />
+            </LinearLayout>
+
+            <View style="@style/separator" />
+
+            <!--  User name  -->
+            <LinearLayout style="@style/settings_btn">
+
+                <TextView
+                    style="@style/btn_value"
+                    android:text="@string/settings_default_user_name_account" />
+
+                <TextView
+                    style="@style/button_label"
+                    android:text="@string/settings_label_user_name" />
+            </LinearLayout>
+
+            <View style="@style/separator" />
+
+            <!--  About  -->
+            <LinearLayout style="@style/settings_btn">
+
+                <TextView
+                    style="@style/btn_value"
+                    android:text="@string/settings_default_about" />
+
+                <TextView
+                    style="@style/button_label"
+                    android:text="@string/settings_label_about" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

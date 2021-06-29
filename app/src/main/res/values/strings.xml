@@ -13,4 +13,13 @@
     <string name="questions">Вопросы о Teleclone</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings_default_user_name">User</string>
+    <string name="settings_default_status">в сети</string>
+    <string name="settings_title_account">Акаунт</string>
+    <string name="settings_default_number">+79913599118</string>
+    <string name="settings_label_number">Нажмите, чтобы cменить номер телефона</string>
+    <string name="settings_default_user_name_account">\@user</string>
+    <string name="settings_label_user_name">Имя пользователя</string>
+    <string name="settings_default_about">О себе</string>
+    <string name="settings_label_about">Напишите немного о себе</string>
 </resources>
