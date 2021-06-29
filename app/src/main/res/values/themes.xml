@@ -15,6 +15,7 @@
         </item>
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/white</item>
+        <item name="popupTheme">@style/action_menu</item>
 
         <!-- MaterialDrawer specific values -->
         <item name="material_drawer_background">@color/material_drawer_background</item>

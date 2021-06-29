@@ -22,4 +22,6 @@
     <string name="settings_label_user_name">Имя пользователя</string>
     <string name="settings_default_about">О себе</string>
     <string name="settings_label_about">Напишите немного о себе</string>
+    <string name="settings_menu_change_name">Изменить имя</string>
+    <string name="settings_menu_exit">Выход</string>
 </resources>

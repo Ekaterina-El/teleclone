@@ -19,6 +19,12 @@
         <item name="android:paddingVertical">@dimen/settings_user_info_paddingVertical</item>
     </style>
 
+    <style name="action_menu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/white</item>
+        <item name="actionMenuTextColor">@color/grey_light</item>
+        <item name="titleTextColor">@color/grey_light</item>
+    </style>
+
     <style name="user_photo">
         <item name="android:layout_width">@dimen/settings_user_photo_width</item>
         <item name="android:layout_height">@dimen/settings_user_photo_height</item>
