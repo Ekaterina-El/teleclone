@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.EnterCodeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/normal_margin"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/register_image"
+            android:contentDescription="@string/cd_register_image" />
+
+        <TextView
+            android:layout_margin="@dimen/normal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/normal_text"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:text="@string/enter_code" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/normal_text"
+            android:textColor="@color/grey"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:gravity="center"
+            android:text="Мы отправили СМС с кодом подтверждения на Ваш телефон" />
+
+
+        <EditText
+            android:layout_marginTop="@dimen/overlarge_margin"
+            android:hint="@string/enter_code_mask"
+            android:maxLength="6"
+            android:id="@+id/enter_code"
+            android:gravity="center"
+            style="@style/editText"
+            tools:ignore="LabelFor"
+            tools:targetApi="lollipop" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

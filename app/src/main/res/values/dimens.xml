@@ -14,4 +14,5 @@
     <dimen name="settings_user_change_photo_margin_end">20dp</dimen>
     <dimen name="small_padding">5dp</dimen>
     <dimen name="ripple_effect_radius">4dp</dimen>
+    <dimen name="overlarge_margin">35dp</dimen>
 </resources>

@@ -24,4 +24,10 @@
     <string name="settings_label_about">Напишите немного о себе</string>
     <string name="settings_menu_change_name">Изменить имя</string>
     <string name="settings_menu_exit">Выход</string>
+    <string name="enter_code">Введите код</string>
+    <string name="cd_register_image">Register image</string>
+    <string name="enter_code_mask">- - - - - -</string>
+
+    <string name="enter_phone">Введите номер телефона</string>
+    <string name="verifiPhone">Проверка телефона</string>
 </resources>
