@@ -30,4 +30,5 @@
 
     <string name="enter_phone">Введите номер телефона</string>
     <string name="verifiPhone">Проверка телефона</string>
+    <string name="welcome">Добро пожаловать.</string>
 </resources>
