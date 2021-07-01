@@ -22,6 +22,7 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
+
         super.onStart()
         initFields()
         initFunc()
@@ -30,7 +31,7 @@ class RegistrationActivity : AppCompatActivity() {
     private fun initFunc() {
         setSupportActionBar(mToolbar)
         title = "Ваш телефон"
-        replaceFragment(R.id.registrationDataContainer, EnterPhoneFragment())
+        replaceFragment(R.id.registrationDataContainer, EnterPhoneFragment(), false)
     }
 
 

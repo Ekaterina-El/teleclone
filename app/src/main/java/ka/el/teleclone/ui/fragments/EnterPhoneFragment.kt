@@ -1,5 +1,6 @@
 package ka.el.teleclone.ui.fragments
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -36,7 +37,7 @@ class EnterPhoneFragment : Fragment(R.layout.fragment_enter_phone) {
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                showToast(p0.message.toString())
+                Log.d("TAG", p0.message.toString())
             }
 
             override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) {
