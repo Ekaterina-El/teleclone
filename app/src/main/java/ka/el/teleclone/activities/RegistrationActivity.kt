@@ -8,6 +8,7 @@ import ka.el.teleclone.databinding.ActivityRegistrationBinding
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.fragments.EnterPhoneFragment
 import ka.el.teleclone.ui.objects.AppDrawer
+import ka.el.teleclone.utils.replaceFragment
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityRegistrationBinding
@@ -29,7 +30,7 @@ class RegistrationActivity : AppCompatActivity() {
     private fun initFunc() {
         setSupportActionBar(mToolbar)
         title = "Ваш телефон"
-        supportFragmentManager.beginTransaction().add(R.id.registrationDataContainer, EnterPhoneFragment()).commit()
+        replaceFragment(R.id.registrationDataContainer, EnterPhoneFragment())
     }
 
 

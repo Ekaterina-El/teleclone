@@ -10,7 +10,8 @@ import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.objects.AppDrawer
-import java.util.concurrent.RecursiveAction
+import ka.el.teleclone.utils.replaceActivity
+import ka.el.teleclone.utils.replaceFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -36,14 +37,14 @@ class MainActivity : AppCompatActivity() {
     private fun initFunc() {
         if (false) {
             setSupportActionBar(mToolbar)
-            supportFragmentManager.beginTransaction().replace(R.id.dataContainer, ChatFragment()).commit()
+            replaceFragment(R.id.dataContainer, ChatFragment())
             mAppDrawer.create()
         } else {
-            val intent = Intent(this, RegistrationActivity::class.java)
-            startActivity(intent)
+            replaceActivity(RegistrationActivity())
         }
 
     }
+
 
 
     private fun initFields() {
