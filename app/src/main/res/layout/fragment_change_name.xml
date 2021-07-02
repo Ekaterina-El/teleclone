@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="60dp"
+    android:layout_marginHorizontal="@dimen/normal_margin"
+    tools:context=".ui.fragments.ChangeNameFragment">
+
+    <EditText
+        android:id="@+id/change_name"
+        android:hint="@string/change_name_hint"
+        style="@style/editText"
+        tools:ignore="LabelFor"
+        android:inputType="text"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:id="@+id/change_surname"
+        android:hint="@string/change_surname_hint"
+        style="@style/editText"
+        tools:ignore="LabelFor"
+        android:inputType="text"
+        tools:targetApi="lollipop" />
+
+
+</LinearLayout>

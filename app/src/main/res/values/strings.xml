@@ -31,4 +31,8 @@
     <string name="enter_phone">Введите номер телефона</string>
     <string name="verifiPhone">Проверка телефона</string>
     <string name="welcome">Добро пожаловать.</string>
+    <string name="change_name_save">Сохранить</string>
+    <string name="change_name_hint">Имя</string>
+    <string name="change_surname_hint">Фамилия</string>
+    <string name="change_name_error">Имя не можеть быть пустым</string>
 </resources>

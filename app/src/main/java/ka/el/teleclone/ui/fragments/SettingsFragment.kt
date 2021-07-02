@@ -10,6 +10,7 @@ import ka.el.teleclone.databinding.FragmentChatBinding
 import ka.el.teleclone.databinding.FragmentSettingsBinding
 import ka.el.teleclone.utils.AUTH
 import ka.el.teleclone.utils.replaceActivity
+import ka.el.teleclone.utils.replaceFragment
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -31,6 +32,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             R.id.settings_exit -> {
                 AUTH.signOut()
                 (activity as MainActivity).replaceActivity(RegistrationActivity())
+            }
+
+            R.id.settings_change_name -> {
+                (activity as MainActivity).replaceFragment(R.id.dataContainer, ChangeNameFragment())
             }
         }
 
