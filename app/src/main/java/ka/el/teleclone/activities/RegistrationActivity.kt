@@ -8,6 +8,7 @@ import ka.el.teleclone.databinding.ActivityRegistrationBinding
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.fragments.EnterPhoneFragment
 import ka.el.teleclone.ui.objects.AppDrawer
+import ka.el.teleclone.utils.initFirebase
 import ka.el.teleclone.utils.replaceFragment
 
 class RegistrationActivity : AppCompatActivity() {
@@ -36,6 +37,7 @@ class RegistrationActivity : AppCompatActivity() {
 
 
     private fun initFields() {
+        initFirebase()
         mToolbar = mBinding.registrationToolbar
     }
 

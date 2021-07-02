@@ -12,6 +12,7 @@ import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.objects.AppDrawer
 import ka.el.teleclone.utils.AUTH
+import ka.el.teleclone.utils.initFirebase
 import ka.el.teleclone.utils.replaceActivity
 import ka.el.teleclone.utils.replaceFragment
 
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initFields() {
-        AUTH = FirebaseAuth.getInstance()
+        initFirebase()
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
     }
