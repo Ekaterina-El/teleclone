@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import ka.el.teleclone.R
 import ka.el.teleclone.databinding.FragmentChatBinding
 
-class ChatFragment : BaseFragment(R.layout.fragment_chat) {
+class ChatFragment : Fragment(R.layout.fragment_chat) {
 
     override fun onResume() {
         super.onResume()
 
+        activity?.title = getString(R.string.app_name)
     }
 
 }

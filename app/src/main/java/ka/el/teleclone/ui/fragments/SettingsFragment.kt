@@ -11,11 +11,13 @@ import ka.el.teleclone.databinding.FragmentSettingsBinding
 import ka.el.teleclone.utils.AUTH
 import ka.el.teleclone.utils.replaceActivity
 
-class SettingsFragment : Fragment(R.layout.fragment_settings) {
+class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+
+        activity?.title = getString(R.string.settings)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
