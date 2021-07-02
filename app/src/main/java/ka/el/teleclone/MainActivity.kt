@@ -4,16 +4,18 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.objects.AppDrawer
-import ka.el.teleclone.utils.AUTH
-import ka.el.teleclone.utils.replaceActivity
-import ka.el.teleclone.utils.replaceFragment
+import ka.el.teleclone.utils.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initFunc() {
+
         if (AUTH.currentUser != null) {
             setSupportActionBar(mToolbar)
             replaceFragment(R.id.dataContainer, ChatFragment(), false)
@@ -50,8 +53,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initFields() {
-//        initFirebase()
-        AUTH = FirebaseAuth.getInstance()
+        initFirebase()
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
     }

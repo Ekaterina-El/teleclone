@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "950960372056",
-    "project_id": "teleclone-9cd49",
-    "storage_bucket": "teleclone-9cd49.appspot.com"
+    "project_number": "71597369286",
+    "firebase_url": "https://teleclone-5a139-default-rtdb.firebaseio.com",
+    "project_id": "teleclone-5a139",
+    "storage_bucket": "teleclone-5a139.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:950960372056:android:32edc23c4ce58d8c5c4d2d",
+        "mobilesdk_app_id": "1:71597369286:android:4a100b296a1107c9b4b4c7",
         "android_client_info": {
           "package_name": "ka.el.teleclone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "950960372056-ad1svpo0b0qu7n34qanl8lh1aum6a34r.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "ka.el.teleclone",
-            "certificate_hash": "ce44be5ebbd702cd4127ef9d191d86b04bb4072d"
-          }
-        },
-        {
-          "client_id": "950960372056-vllgqnkkq1a7regmev3dh8uf8721oidb.apps.googleusercontent.com",
+          "client_id": "71597369286-5f48hoiq7atnhjg74beglctssc7hvjf1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA1srfi8bU3e6aeGQMAc5hRhty6yu9p8-I"
+          "current_key": "AIzaSyD5Z_GCAXryioXmmTmTeqmymO7gj0xgMZ4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "950960372056-vllgqnkkq1a7regmev3dh8uf8721oidb.apps.googleusercontent.com",
+              "client_id": "71597369286-5f48hoiq7atnhjg74beglctssc7hvjf1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
