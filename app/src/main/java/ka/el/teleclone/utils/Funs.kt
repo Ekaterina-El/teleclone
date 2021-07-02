@@ -19,7 +19,7 @@ fun AppCompatActivity.replaceFragment(container: Int, fragment: Fragment, addToB
     } else {
         supportFragmentManager
             .beginTransaction()
-            .replace(container, fragment)
+            .add(container, fragment)
             .commit()
     }
 
