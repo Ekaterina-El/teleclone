@@ -13,8 +13,10 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.databinding.ActivityMainBinding
+import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.objects.AppDrawer
+import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 
 class MainActivity : AppCompatActivity() {
@@ -57,6 +59,10 @@ class MainActivity : AppCompatActivity() {
         initFirebase()
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
+
+        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).addListenerForSingleValueEvent(AppValueEventListener {
+            USER = it.getValue(User::class.java) ?: User()
+        })
     }
 
 }

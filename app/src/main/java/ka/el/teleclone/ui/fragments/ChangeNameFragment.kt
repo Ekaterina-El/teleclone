@@ -11,10 +11,37 @@ import kotlinx.android.synthetic.main.fragment_change_name.*
 
 class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onResume() {
+        super.onResume()
         setHasOptionsMenu(true)
+
+        setDefaultValue()
+    }
+
+    private fun setDefaultValue() {
+        val fullNameList = USER.full_name.split(" ")
+        change_name.setText(fullNameList[0])
+        change_surname.setText(fullNameList[1])
+    }
+
+    private fun saveFullName() {
+        val name = change_name.text.toString()
+        val surname = change_surname.text.toString()
+
+        if (name.isEmpty()) {
+            showToast(getString(R.string.change_name_error))
+        } else {
+            val full_name = "$name $surname"
+
+            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_FULL_NAME)
+                .setValue(full_name).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    USER.full_name = full_name
+                    showToast("Данные обновленны")
+                    fragmentManager?.popBackStack()
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -31,24 +58,5 @@ class ChangeNameFragment : Fragment(R.layout.fragment_change_name) {
         }
 
         return true
-    }
-
-    private fun saveFullName() {
-        val name = change_name.text.toString()
-        val surname = change_surname.text.toString()
-
-        if (name.isEmpty()) {
-            showToast(getString(R.string.change_name_error))
-        } else {
-            val full_name = "$name $surname"
-
-            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_FULL_NAME).setValue(full_name).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    USER.full_name = full_name
-                    showToast("Данные обновленны")
-                    fragmentManager?.popBackStack()
-                }
-            }
-        }
     }
 }
