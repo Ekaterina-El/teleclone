@@ -40,4 +40,5 @@
     <string name="change_user_name">Имя пользователя</string>
     <string name="change_full_name">Полное имя</string>
     <string name="error_change_user_name_empty">Имя пользователя не может быть пустой строкой</string>
+    <string name="invalide_user_name">Некорректное имя пользователя</string>
 </resources>

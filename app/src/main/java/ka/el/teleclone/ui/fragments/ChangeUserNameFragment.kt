@@ -35,7 +35,11 @@ class ChangeUserNameFragment : BaseFragment(R.layout.fragment_change_user_name) 
 
         if (mNewUserName.isEmpty()) {
             showToast(getString(R.string.error_change_user_name_empty))
-        } else {
+        }
+        else if (mNewUserName.equals("Inactive user")) {
+            showToast(getString(R.string.invalide_user_name))
+        }
+        else {
             REF_DATABASE_ROOT.child(NODE_USERS_NAME).child(mNewUserName).setValue(UID)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
