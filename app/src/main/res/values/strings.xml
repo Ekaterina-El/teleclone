@@ -35,4 +35,6 @@
     <string name="change_name_hint">Имя</string>
     <string name="change_surname_hint">Фамилия</string>
     <string name="change_name_error">Имя не можеть быть пустым</string>
+
+    <string name="update_data">Данные обновлены</string>
 </resources>

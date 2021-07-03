@@ -31,6 +31,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settings_phone_number.setText(USER.phone_number)
         settings_user_name.setText(USER.user_name)
         settings_bio.setText(USER.bio)
+
+        settings_btn_user_name.setOnClickListener {
+            replaceFragment(R.id.dataContainer, ChangeUserNameFragment())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

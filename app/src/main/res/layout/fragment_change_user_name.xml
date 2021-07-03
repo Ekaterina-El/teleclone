@@ -5,24 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/normal_margin"
-    tools:context=".ui.fragments.ChangeNameFragment">
+    tools:context=".ui.fragments.ChangeUserNameFragment">
 
     <EditText
-        android:id="@+id/change_name"
+        android:id="@+id/change_user_name"
         android:hint="@string/change_name_hint"
         style="@style/editText"
         tools:ignore="LabelFor"
         android:inputType="text"
         tools:targetApi="lollipop" />
-
-    <EditText
-        android:layout_marginTop="10dp"
-        android:id="@+id/change_surname"
-        android:hint="@string/change_surname_hint"
-        style="@style/editText"
-        tools:ignore="LabelFor"
-        android:inputType="text"
-        tools:targetApi="lollipop" />
-
 
 </LinearLayout>

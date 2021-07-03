@@ -80,7 +80,9 @@
             <View style="@style/separator" />
 
             <!--  User name  -->
-            <LinearLayout style="@style/settings_btn">
+            <LinearLayout
+                android:id="@+id/settings_btn_user_name"
+                style="@style/settings_btn">
 
                 <TextView
                     android:id="@+id/settings_user_name"
