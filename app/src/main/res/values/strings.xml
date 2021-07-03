@@ -37,4 +37,7 @@
     <string name="change_name_error">Имя не можеть быть пустым</string>
 
     <string name="update_data">Данные обновлены</string>
+    <string name="change_user_name">Имя пользователя</string>
+    <string name="change_full_name">Полное имя</string>
+    <string name="error_change_user_name_empty">Имя пользователя не может быть пустой строкой</string>
 </resources>

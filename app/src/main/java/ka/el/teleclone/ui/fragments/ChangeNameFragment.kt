@@ -10,12 +10,22 @@ import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
 class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+    private lateinit var oldTitle:String
+
 
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
 
         setDefaultValue()
+        oldTitle = activity?.title.toString()
+        activity?.title = getString(R.string.change_full_name)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        activity?.title = oldTitle
     }
 
     private fun setDefaultValue() {
