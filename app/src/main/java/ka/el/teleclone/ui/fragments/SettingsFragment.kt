@@ -9,8 +9,10 @@ import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.databinding.FragmentChatBinding
 import ka.el.teleclone.databinding.FragmentSettingsBinding
 import ka.el.teleclone.utils.AUTH
+import ka.el.teleclone.utils.USER
 import ka.el.teleclone.utils.replaceActivity
 import ka.el.teleclone.utils.replaceFragment
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -19,6 +21,16 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         setHasOptionsMenu(true)
 
         activity?.title = getString(R.string.settings)
+
+        initFields()
+    }
+
+    private fun initFields() {
+        settings_full_name.setText(USER.full_name)
+        settings_status.setText(USER.status)
+        settings_phone_number.setText(USER.phone_number)
+        settings_user_name.setText(USER.user_name)
+        settings_bio.setText(USER.bio)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -28,12 +28,14 @@
             <LinearLayout style="@style/settings_user_info">
 
                 <TextView
+                    android:id="@+id/settings_full_name"
                     style="@style/large_text"
-                    android:text="@string/settings_default_user_name" />
+                    tools:text="@string/settings_default_user_name" />
 
                 <TextView
+                    android:id="@+id/settings_status"
                     style="@style/small_text"
-                    android:text="@string/settings_default_status" />
+                    tools:text="@string/settings_default_status" />
 
             </LinearLayout>
         </LinearLayout>
@@ -66,8 +68,9 @@
             <LinearLayout style="@style/settings_btn">
 
                 <TextView
+                    android:id="@+id/settings_phone_number"
                     style="@style/btn_value"
-                    android:text="@string/settings_default_number" />
+                    tools:text="@string/settings_default_number" />
 
                 <TextView
                     style="@style/button_label"
@@ -80,8 +83,9 @@
             <LinearLayout style="@style/settings_btn">
 
                 <TextView
+                    android:id="@+id/settings_user_name"
                     style="@style/btn_value"
-                    android:text="@string/settings_default_user_name_account" />
+                    tools:text="@string/settings_default_user_name_account" />
 
                 <TextView
                     style="@style/button_label"
@@ -94,8 +98,9 @@
             <LinearLayout style="@style/settings_btn">
 
                 <TextView
+                    android:id="@+id/settings_bio"
                     style="@style/btn_value"
-                    android:text="@string/settings_default_about" />
+                    tools:text="@string/settings_default_about" />
 
                 <TextView
                     style="@style/button_label"
