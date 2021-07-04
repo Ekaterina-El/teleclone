@@ -1,12 +1,10 @@
 package ka.el.teleclone.ui.fragments
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
 import ka.el.teleclone.utils.APP_ACTIVITY
+import ka.el.teleclone.utils.hideKeyboard
 
 open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
     private lateinit var oldTitle: String
