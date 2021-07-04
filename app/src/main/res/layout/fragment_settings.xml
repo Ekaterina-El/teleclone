@@ -41,7 +41,7 @@
         </LinearLayout>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/camera"
+            android:id="@+id/settings_btn_change_photo"
             style="@style/user_change_photo"
             android:elevation="2dp"
             android:src="@drawable/ic_camera"

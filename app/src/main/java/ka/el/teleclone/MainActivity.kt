@@ -11,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.theartofdev.edmodo.cropper.CropImage
 import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.models.User
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        APP_ACTIVITY = this
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
@@ -54,15 +56,33 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     private fun initFields() {
         initFirebase()
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
 
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).addListenerForSingleValueEvent(AppValueEventListener {
-            USER = it.getValue(User::class.java) ?: User()
-        })
+        REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+            .addListenerForSingleValueEvent(AppValueEventListener {
+                USER = it.getValue(User::class.java) ?: User()
+            })
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if ((requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+            && (resultCode == RESULT_OK)
+            && (data != null)) {
+            val uri = CropImage.getActivityResult(data).uri
+            val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_PHOTO).child(UID)
+
+            path.putFile(uri).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    showToast(getString(R.string.update_data))
+                }
+            }
+
+        }
+    }
 }

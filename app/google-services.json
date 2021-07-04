@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "71597369286-vf52v4taiv299ev02tafmvo2f2s3cikq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ka.el.teleclone",
+            "certificate_hash": "ce44be5ebbd702cd4127ef9d191d86b04bb4072d"
+          }
+        },
+        {
           "client_id": "71597369286-5f48hoiq7atnhjg74beglctssc7hvjf1.apps.googleusercontent.com",
           "client_type": 3
         }

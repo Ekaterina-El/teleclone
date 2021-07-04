@@ -5,21 +5,17 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import ka.el.teleclone.models.User
+
+/*RealtimeDatabase*/
 
 lateinit var AUTH: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 
-lateinit var USER:User
-lateinit var UID:String
-
-fun initFirebase() {
-    AUTH = FirebaseAuth.getInstance()
-    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
-
-    UID = AUTH.currentUser?.uid.toString()
-    USER = User()
-}
+lateinit var USER: User
+lateinit var UID: String
 
 const val NODE_USERS = "users"
 
@@ -31,3 +27,17 @@ const val CHILD_BIO = "bio"
 
 const val NODE_USERS_NAME = "users_name"
 
+
+/* Storage */
+
+lateinit var REF_STORAGE_ROOT: StorageReference
+const val FOLDER_PROFILE_PHOTO = "profile_images"
+
+fun initFirebase() {
+    AUTH = FirebaseAuth.getInstance()
+    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
+
+    UID = AUTH.currentUser?.uid.toString()
+    USER = User()
+}
