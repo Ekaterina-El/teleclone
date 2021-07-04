@@ -28,6 +28,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     private fun initFields() {
+        if (!USER.photo_url.isEmpty()) {
+            profile_image.downloadAndSetImage(USER.photo_url)
+        }
 
         settings_full_name.text = USER.full_name
         settings_status.text = USER.status
@@ -95,6 +98,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                                 if (tChangeUserData.isSuccessful) {
                                     showToast(getString(R.string.update_data))
                                     USER.photo_url = url
+
+                                    profile_image.downloadAndSetImage(url)
                                 }
                             }
                         }
