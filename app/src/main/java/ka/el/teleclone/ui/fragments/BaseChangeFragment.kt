@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
+import ka.el.teleclone.utils.APP_ACTIVITY
 
 open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
     private lateinit var oldTitle: String
@@ -22,6 +23,7 @@ open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
         super.onStop()
 
         activity?.title = oldTitle
+        APP_ACTIVITY.hideKeyboard()
     }
 
 

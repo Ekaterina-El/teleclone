@@ -17,7 +17,7 @@ class ChangeBioFragment : BaseChangeFragment(R.layout.fragment_change_bio) {
         super.onResume()
 
         setDefaultValue()
-        activity?.title = getString(R.string.change_full_name)
+        activity?.title = getString(R.string.change_bio)
     }
 
     private fun setDefaultValue() {
