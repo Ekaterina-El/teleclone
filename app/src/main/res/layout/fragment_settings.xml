@@ -96,8 +96,10 @@
 
             <View style="@style/separator" />
 
-            <!--  About  -->
-            <LinearLayout style="@style/settings_btn">
+            <!--  Bio  -->
+            <LinearLayout
+                android:id="@+id/settings_btn_bio"
+                style="@style/settings_btn">
 
                 <TextView
                     android:id="@+id/settings_bio"
