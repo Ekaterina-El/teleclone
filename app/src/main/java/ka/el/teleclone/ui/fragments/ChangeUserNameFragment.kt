@@ -10,27 +10,17 @@ import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_change_user_name.*
 import java.util.*
 
-class ChangeUserNameFragment : BaseFragment(R.layout.fragment_change_user_name) {
+class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_name) {
     private lateinit var mNewUserName: String
-    private lateinit var oldTitle: String
 
     override fun onResume() {
         super.onResume()
 
-        setHasOptionsMenu(true)
         change_user_name.setText(USER.user_name)
-
-        oldTitle = activity?.title.toString()
         activity?.title = getString(R.string.change_user_name)
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        activity?.title = oldTitle
-    }
-
-    private fun changeUserName() {
+     override fun change() {
         mNewUserName = change_user_name.text.toString().toLowerCase(Locale.getDefault())
 
         if (mNewUserName.isEmpty()) {
@@ -77,21 +67,5 @@ class ChangeUserNameFragment : BaseFragment(R.layout.fragment_change_user_name) 
                     showToast(it.exception.toString())
                 }
             }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        (activity as MainActivity).menuInflater.inflate(R.menu.change_name_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.change_name_save -> {
-                changeUserName()
-            }
-        }
-
-        return true
     }
 }

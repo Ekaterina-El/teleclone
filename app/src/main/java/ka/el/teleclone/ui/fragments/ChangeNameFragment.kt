@@ -9,23 +9,14 @@ import ka.el.teleclone.activities.RegistrationActivity
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
-class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
-    private lateinit var oldTitle:String
+class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
 
 
     override fun onResume() {
         super.onResume()
-        setHasOptionsMenu(true)
 
         setDefaultValue()
-        oldTitle = activity?.title.toString()
         activity?.title = getString(R.string.change_full_name)
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        activity?.title = oldTitle
     }
 
     private fun setDefaultValue() {
@@ -34,7 +25,7 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         change_surname.setText(fullNameList[1])
     }
 
-    private fun saveFullName() {
+    override fun change() {
         val name = change_name.text.toString()
         val surname = change_surname.text.toString()
 
@@ -54,19 +45,5 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        (activity as MainActivity).menuInflater.inflate(R.menu.change_name_menu, menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            R.id.change_name_save -> {
-                saveFullName()
-            }
-        }
-
-        return true
-    }
 }
