@@ -24,6 +24,7 @@ const val CHILD_PHONE_NUMBER = "phone_number"
 const val CHILD_USER_NAME = "user_name"
 const val CHILD_FULL_NAME = "full_name"
 const val CHILD_BIO = "bio"
+const val CHILD_PHOTO_URl = "photo_url"
 
 const val NODE_USERS_NAME = "users_name"
 

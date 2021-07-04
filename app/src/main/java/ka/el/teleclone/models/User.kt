@@ -5,7 +5,7 @@ data class User(
     var phone_number: String = "",
     var user_name: String = "",
     var full_name: String = "Inactive user",
-    var photoURI: String = "",
+    var photo_url: String = "",
     var status: String = "",
     var bio: String = "",
 )

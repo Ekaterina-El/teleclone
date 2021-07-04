@@ -81,7 +81,17 @@ class MainActivity : AppCompatActivity() {
 
             path.putFile(uri).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    showToast(getString(R.string.update_data))
+                    path.downloadUrl.addOnCompleteListener { tDownloadUrl ->
+                        if (tDownloadUrl.isSuccessful) {
+                            val url = tDownloadUrl.result.toString()
+                            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_PHOTO_URl).setValue(url).addOnCompleteListener { tChangeUserData ->
+                                if (tChangeUserData.isSuccessful) {
+                                    showToast(getString(R.string.update_data))
+                                    USER.photo_url = url
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
