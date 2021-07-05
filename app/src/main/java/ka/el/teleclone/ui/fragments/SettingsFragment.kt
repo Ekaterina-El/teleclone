@@ -35,7 +35,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
 
         settings_full_name.text = USER.full_name
-        settings_status.text = USER.status
+        settings_status.text = USER.state
         settings_phone_number.text = USER.phone_number
         settings_user_name.text = USER.user_name
         settings_bio.text = USER.bio

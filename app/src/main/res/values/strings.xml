@@ -43,4 +43,5 @@
     <string name="invalide_user_name">Некорректное имя пользователя</string>
     <string name="bio_hint">Bio</string>
     <string name="change_bio">Информация о себе</string>
+    <string name="state_online">в сети</string>
 </resources>
