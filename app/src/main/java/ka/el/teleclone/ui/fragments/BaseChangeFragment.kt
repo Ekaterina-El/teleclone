@@ -23,6 +23,7 @@ open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
 
         activity?.title = oldTitle
         APP_ACTIVITY.hideKeyboard()
+        APP_ACTIVITY.mAppDrawer.updateHeader()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

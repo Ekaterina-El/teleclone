@@ -9,6 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import ka.el.teleclone.models.User
+import ka.el.teleclone.ui.objects.AppValueEventListener
 
 /*RealtimeDatabase*/
 
@@ -62,4 +63,12 @@ inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline funct
     path.putFile(uri)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+inline fun initUser(crossinline function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            USER = it.getValue(User::class.java) ?: User()
+            function()
+        })
 }

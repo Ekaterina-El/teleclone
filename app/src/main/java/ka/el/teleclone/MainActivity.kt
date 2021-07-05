@@ -36,8 +36,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         APP_ACTIVITY = this
-        initFields()
-        initFunc()
+        initFirebase()
+        initUser {
+            initFields()
+            initFunc()
+        }
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -55,13 +60,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initFields() {
-        initFirebase()
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
-
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
-            .addListenerForSingleValueEvent(AppValueEventListener {
-                USER = it.getValue(User::class.java) ?: User()
-            })
     }
 }
