@@ -2,6 +2,7 @@ package ka.el.teleclone.utils
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -50,6 +51,7 @@ fun  AppCompatActivity.hideKeyboard() {
 }
 
 fun CircleImageView.downloadAndSetImage(url: String) {
+    Log.d("TAG", "Downloading photo")
     Picasso.get()
         .load(url)
         .placeholder(R.drawable.default_photo)

@@ -2,10 +2,12 @@ package ka.el.teleclone.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.storage.StorageReference
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import ka.el.teleclone.MainActivity
@@ -88,25 +90,15 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_PHOTO).child(UID)
 
-            path.putFile(uri).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    path.downloadUrl.addOnCompleteListener { tDownloadUrl ->
-                        if (tDownloadUrl.isSuccessful) {
-                            val url = tDownloadUrl.result.toString()
-                            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_PHOTO_URl)
-                                .setValue(url).addOnCompleteListener { tChangeUserData ->
-                                if (tChangeUserData.isSuccessful) {
-                                    showToast(getString(R.string.update_data))
-                                    USER.photo_url = url
-
-                                    profile_image.downloadAndSetImage(url)
-                                }
-                            }
-                        }
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) { photo_url ->
+                    putUrlToDatabase(photo_url) {
+                        showToast(getString(R.string.update_data))
+                        USER.photo_url = photo_url
+                        profile_image.downloadAndSetImage(photo_url)
                     }
                 }
             }
-
         }
     }
 }
