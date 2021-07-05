@@ -2,6 +2,7 @@ package ka.el.teleclone
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
@@ -37,12 +39,31 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
         initFirebase()
+        initContacts()
         initUser {
             initFields()
             initFunc()
         }
 
 
+
+    }
+
+    private fun initContacts() {
+        if (checkPermission(READ_CONTACTS)) {
+            showToast("Получение контактов")
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+            initContacts()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
