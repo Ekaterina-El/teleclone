@@ -33,6 +33,8 @@ const val CHILD_STATE = "state"
 
 const val NODE_USERS_NAME = "users_name"
 
+const val NODE_PHONES = "phones"
+
 
 /* Storage */
 

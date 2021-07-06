@@ -44,15 +44,17 @@ class EnterCodeFragment(val mPhoneNumber: String, val id: String) : Fragment(R.l
                 dataUserMap[CHILD_PHONE_NUMBER] = mPhoneNumber
                 dataUserMap[CHILD_USER_NAME] = uid
 
-
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataUserMap).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.d("verifiCode", "update successful")
-
-                        showToast(getString(R.string.welcome))
-                        (activity as RegistrationActivity).replaceActivity(MainActivity())
+                REF_DATABASE_ROOT.child(NODE_PHONES).child(mPhoneNumber).setValue(uid)
+                    .addOnSuccessListener {
+                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataUserMap)
+                            .addOnCompleteListener {
+                                showToast(getString(R.string.welcome))
+                                (activity as RegistrationActivity).replaceActivity(MainActivity())
+                            }
+                            .addOnFailureListener { showToast(it.message.toString()) }
                     }
-                }
+                    .addOnFailureListener { showToast(it.message.toString()) }
+
             } else showToast(task.exception.toString())
         }
     }
