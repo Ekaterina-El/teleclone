@@ -23,6 +23,9 @@ import ka.el.teleclone.ui.fragments.ChatFragment
 import ka.el.teleclone.ui.objects.AppDrawer
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -39,8 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
         initFirebase()
-        initContacts()
         initUser {
+            CoroutineScope(Dispatchers.IO).launch {
+                initContacts()
+            }
+
             initFields()
             initFunc()
         }
