@@ -1,6 +1,7 @@
 package ka.el.teleclone.utils
 
 import android.net.Uri
+import android.provider.ContactsContract
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -8,6 +9,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.objects.AppValueEventListener
 
@@ -72,4 +74,33 @@ inline fun initUser(crossinline function: () -> Unit) {
             USER = it.getValue(User::class.java) ?: User()
             function()
         })
+}
+
+
+fun initContacts() {
+    if (checkPermission(READ_CONTACTS)) {
+
+        val arrayContacts = arrayListOf<CommonModel>()
+
+        val cursor = APP_ACTIVITY.contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null, null, null, null
+        )
+
+        cursor?.let {
+            while (cursor.moveToNext()) {
+                val full_name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone_number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+                val newModel = CommonModel()
+                newModel.full_name = full_name ?: "Error"
+                newModel.phone_number = phone_number.replace(Regex("[\\s,-]"), "")
+
+                arrayContacts.add(newModel)
+            }
+        }
+
+        cursor?.close()
+        showToast("Получение контактов")
+    }
 }

@@ -55,11 +55,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun initContacts() {
-        if (checkPermission(READ_CONTACTS)) {
-            showToast("Получение контактов")
-        }
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
