@@ -34,6 +34,7 @@ const val CHILD_STATE = "state"
 const val NODE_USERS_NAME = "users_name"
 
 const val NODE_PHONES = "phones"
+const val NODE_PHONES_CONTACTS = "phones_contacts"
 
 
 /* Storage */
@@ -71,11 +72,16 @@ inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline funct
 }
 
 inline fun initUser(crossinline function: () -> Unit) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
-        .addListenerForSingleValueEvent(AppValueEventListener {
-            USER = it.getValue(User::class.java) ?: User()
-            function()
-        })
+    if (UID != null) {
+        REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+            .addListenerForSingleValueEvent(AppValueEventListener {
+                USER = it.getValue(User::class.java) ?: User()
+                function()
+            })
+    } else {
+        function()
+    }
+
 }
 
 
@@ -91,8 +97,10 @@ fun initContacts() {
 
         cursor?.let {
             while (cursor.moveToNext()) {
-                val full_name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone_number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                val full_name =
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone_number =
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
                 val newModel = CommonModel()
                 newModel.full_name = full_name ?: "Error"
@@ -103,5 +111,31 @@ fun initContacts() {
         }
 
         cursor?.close()
+        updatePhonesToDatabase(arrayContacts)
     }
+}
+
+fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
+        it.children.forEach { snapshot ->
+            arrayContacts.forEach { contact ->
+                if (snapshot.key == contact.phone_number && snapshot.key != USER.phone_number) {
+                    REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
+                        .child(snapshot.value.toString())
+                        .child(CHILD_ID)
+                        .removeValue()
+                        .addOnSuccessListener {
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
+                                .child(snapshot.value.toString())
+                                .child(CHILD_ID)
+                                .setValue(snapshot.value.toString())
+                                .addOnFailureListener { error -> showToast(error.message.toString()) }
+                        }
+                        .addOnFailureListener { error -> showToast(error.message.toString()) }
+
+                }
+            }
+        }
+
+    })
 }
