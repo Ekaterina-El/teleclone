@@ -44,4 +44,5 @@
     <string name="bio_hint">Bio</string>
     <string name="change_bio">Информация о себе</string>
     <string name="state_online">в сети</string>
+    <string name="contacts_title">Контакты</string>
 </resources>

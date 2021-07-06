@@ -19,9 +19,12 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import ka.el.teleclone.R
+import ka.el.teleclone.ui.fragments.ContactsFragment
 import ka.el.teleclone.ui.fragments.SettingsFragment
+import ka.el.teleclone.utils.APP_ACTIVITY
 import ka.el.teleclone.utils.USER
 import ka.el.teleclone.utils.downloadAndSetImage
+import ka.el.teleclone.utils.replaceFragment
 
 class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
     private lateinit var mDrawer: Drawer
@@ -29,7 +32,7 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
     private lateinit var mDrawerLayout: DrawerLayout
     private lateinit var mCurrentProfile: ProfileDrawerItem
 
-    public fun create() {
+    fun create() {
         initLoader()
         createHeader()
         createDrawer()
@@ -123,25 +126,33 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
                     .withSelectable(false)
                     .withIcon(R.drawable.ic_question),
             )
-            .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener{
-                override fun onItemClick(view: View?, position: Int, drawerItem: IDrawerItem<*>): Boolean {
+            .withOnDrawerItemClickListener(object : Drawer.OnDrawerItemClickListener {
+                override fun onItemClick(
+                    view: View?,
+                    position: Int,
+                    drawerItem: IDrawerItem<*>
+                ): Boolean {
                     Log.d("TAG", "Identifier: ${drawerItem.identifier}")
 
-                    when (drawerItem.identifier) {
-                        105L -> {
-                            mainActivity.supportFragmentManager
-                                .beginTransaction()
-                                .addToBackStack(null)
-                                .replace(R.id.dataContainer, SettingsFragment())
-                                .commit()
-                        }
-                    }
+                    clickOnItemDrawer(drawerItem.identifier)
 
                     return false
                 }
 
             })
             .build()
+    }
+
+    private fun clickOnItemDrawer(identifier: Long) {
+        when (identifier) {
+            105L -> {
+                APP_ACTIVITY.replaceFragment(R.id.dataContainer, SettingsFragment())
+            }
+
+            102L -> {
+                APP_ACTIVITY.replaceFragment(R.id.dataContainer, ContactsFragment())
+            }
+        }
     }
 
     private fun createHeader() {
