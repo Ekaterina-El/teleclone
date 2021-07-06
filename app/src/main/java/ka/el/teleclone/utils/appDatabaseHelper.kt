@@ -101,6 +101,5 @@ fun initContacts() {
         }
 
         cursor?.close()
-        showToast("Получение контактов")
     }
 }
