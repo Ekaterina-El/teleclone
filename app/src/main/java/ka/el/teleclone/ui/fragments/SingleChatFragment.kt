@@ -35,7 +35,7 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
 
     private fun updateToolInfo() {
         mToolBar.toolbar_info_name.text =
-            if (mContactInfo.full_name != "Inactive user") mContactInfo.full_name else contact.full_name
+            if (mContactInfo.full_name != "") mContactInfo.full_name else mContactInfo.user_name
         mToolBar.toolbar_info_state.text = mContactInfo.state
         mToolBar.toolbar_info_photo.downloadAndSetImage(mContactInfo.photo_url)
     }
