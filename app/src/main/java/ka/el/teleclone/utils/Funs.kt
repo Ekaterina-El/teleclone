@@ -52,8 +52,9 @@ fun  AppCompatActivity.hideKeyboard() {
 }
 
 fun ImageView.downloadAndSetImage(url: String) {
+    val uUrl = if (url == "") "empty" else url
     Picasso.get()
-        .load(url)
+        .load(uUrl)
         .fit()
         .placeholder(R.drawable.default_photo)
         .into(this)

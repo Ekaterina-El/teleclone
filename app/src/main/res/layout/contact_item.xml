@@ -9,9 +9,10 @@
     android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/contact_photo"
         android:layout_width="@dimen/settings_user_photo_width"
         android:layout_height="@dimen/settings_user_photo_height"
-        android:src="@drawable/default_photo" />
+        tools:src="@drawable/default_photo" />
 
     <LinearLayout
         android:layout_width="match_parent"
