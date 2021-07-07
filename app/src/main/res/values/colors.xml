@@ -6,11 +6,13 @@
     <color name="teal_200">#FFFFFF</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-    <color name="dark">#000</color>
+    <color name="dark">#333</color>
     <color name="grey">#989898</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey_light">#D1D1D1</color>
     <color name="white_dark">#E1E1E1</color>
+    <color name="green">#4AAA4E</color>
+    <color name="green_light">#F9FFE9</color>
 
 
     <!-- Material DEFAULT colors -->

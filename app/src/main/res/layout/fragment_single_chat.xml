@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_chat"
+    tools:context=".ui.fragments.SingleCharFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/single_chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/message_item"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:background="@color/white"
+        android:padding="@dimen/small_margin"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/enter_phone"
+            style="@style/editText"
+            android:layout_weight="1"
+            android:textSize="@dimen/large_text_size"
+            android:hint="Сообщения"
+            android:padding="@dimen/normal_margin"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <ImageView
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_send" />
+
+    </LinearLayout>
+
+</LinearLayout>

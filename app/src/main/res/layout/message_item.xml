@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/normal_margin"
+    android:layout_marginEnd="100dp"
+    android:layout_marginStart="@dimen/normal_margin"
+    android:gravity="start"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@+id/chat_message_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_message"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/normal_margin"
+        android:paddingRight="@dimen/normal_margin"
+        android:paddingBottom="@dimen/very_small_margin">
+
+        <TextView
+            android:id="@+id/chat_text_message"
+            style="@style/normal_text"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/normal_margin"
+            android:textColor="@color/dark"
+            tools:text="Привет, я твой внутрений голос.\nДавай поиграем?" />
+
+        <TextView
+            android:id="@+id/time"
+            style="@style/small_text"
+            android:gravity="end"
+            android:textColor="@color/green"
+            android:textSize="@dimen/very_small_text_size"
+            tools:text="03:21" />
+
+    </LinearLayout>
+
+</LinearLayout>

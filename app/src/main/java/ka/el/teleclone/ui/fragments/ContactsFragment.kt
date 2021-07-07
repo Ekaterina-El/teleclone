@@ -1,14 +1,10 @@
 package ka.el.teleclone.ui.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import de.hdodenhof.circleimageview.CircleImageView
 import ka.el.teleclone.R
@@ -70,6 +66,10 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                     holder.full_name.text = if(contact.full_name != "") contact.full_name else contact.user_name
                     holder.state.text = contact.state
                     holder.photo.downloadAndSetImage(contact.photo_url)
+
+                    holder.itemView.setOnClickListener {
+                        APP_ACTIVITY.replaceFragment(R.id.dataContainer, SingleCharFragment(contact))
+                    }
                 }
 
                 mRefUsers.addValueEventListener(mUsersListener)
