@@ -21,6 +21,11 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter:FirebaseRecyclerAdapter<CommonModel, ContactsHolder>
+    private lateinit var mRefContacts: DatabaseReference
+    private lateinit var mRefUsers: DatabaseReference
+
+    private lateinit var mUsersListener: AppValueEventListener
+    private val mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
 
     class ContactsHolder(view: View): RecyclerView.ViewHolder(view) {
         val full_name = view.contact_full_name
@@ -28,8 +33,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
         val photo:CircleImageView = view.contact_photo
     }
 
-    private lateinit var mRefContacts: DatabaseReference
-    private lateinit var mRefUsers: DatabaseReference
+
 
     override fun onResume() {
         super.onResume()
@@ -59,13 +63,17 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                 model: CommonModel
             ) {
                 mRefUsers = REF_DATABASE_ROOT.child(NODE_USERS).child(model.id)
-                mRefUsers.addValueEventListener(AppValueEventListener {
+
+                mUsersListener = AppValueEventListener {
                     val contact = it.getCommonModel()
 
                     holder.full_name.text = if(contact.full_name != "") contact.full_name else contact.user_name
                     holder.state.text = contact.state
                     holder.photo.downloadAndSetImage(contact.photo_url)
-                })
+                }
+
+                mRefUsers.addValueEventListener(mUsersListener)
+                mapListener[mRefUsers] = mUsersListener
             }
         }
 
@@ -76,5 +84,13 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     override fun onStop() {
         super.onStop()
         mAdapter.stopListening()
+
+        clearMemory()
+    }
+
+    private fun clearMemory() {
+        mapListener.forEach {
+            it.key.removeEventListener(it.value)
+        }
     }
 }
