@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/purple_500"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/toolbar_info_photo"
+        android:layout_width="@dimen/toolbar_info_photo_width"
+        android:layout_height="@dimen/toolbar_info_photo_height"
+        android:src="@drawable/default_photo"
+        app:civ_circle_background_color="@color/white" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_margin_to_photo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/toolbar_info_name"
+            style="@style/normal_text"
+            android:textColor="@color/white"
+            tools:text="Full name" />
+
+        <TextView
+            android:id="@+id/toolbar_info_state"
+            style="@style/small_text"
+            android:textColor="@color/white_dark"
+            tools:text="В сети" />
+
+    </LinearLayout>
+</LinearLayout>

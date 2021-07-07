@@ -15,4 +15,6 @@
     <dimen name="small_padding">5dp</dimen>
     <dimen name="ripple_effect_radius">4dp</dimen>
     <dimen name="overlarge_margin">35dp</dimen>
+    <dimen name="toolbar_info_photo_width">45dp</dimen>
+    <dimen name="toolbar_info_photo_height">45dp</dimen>
 </resources>

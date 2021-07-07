@@ -12,7 +12,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        style="@style/toolbar" />
+        style="@style/toolbar" >
+
+        <include layout="@layout/toolbar_info"
+            android:id="@+id/toolbar_info"
+            android:visibility="gone" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dataContainer"
