@@ -68,6 +68,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
         when (item.itemId) {
             R.id.settings_exit -> {
+                AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
                 (activity as MainActivity).replaceActivity(RegistrationActivity())
             }

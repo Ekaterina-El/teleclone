@@ -87,7 +87,7 @@ inline fun initUser(crossinline function: () -> Unit) {
 
 
 fun initContacts() {
-    if (checkPermission(READ_CONTACTS)) {
+    if (checkPermission(READ_CONTACTS) && UID != "null") {
 
         val arrayContacts = arrayListOf<CommonModel>()
 
@@ -130,6 +130,12 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
                                 .child(snapshot.value.toString())
                                 .child(CHILD_ID)
                                 .setValue(snapshot.value.toString())
+                                .addOnFailureListener { error -> showToast(error.message.toString()) }
+
+                            REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(UID)
+                                .child(snapshot.value.toString())
+                                .child(CHILD_FULL_NAME)
+                                .setValue(contact.full_name)
                                 .addOnFailureListener { error -> showToast(error.message.toString()) }
                         }
                         .addOnFailureListener { error -> showToast(error.message.toString()) }
