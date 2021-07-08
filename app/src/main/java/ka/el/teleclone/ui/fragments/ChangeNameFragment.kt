@@ -22,7 +22,9 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     private fun setDefaultValue() {
         val fullNameList = USER.full_name.split(" ")
         change_name.setText(fullNameList[0])
-        change_surname.setText(fullNameList[1])
+        if (fullNameList.size > 1) {
+            change_surname.setText(fullNameList[1])
+        }
     }
 
     override fun change() {

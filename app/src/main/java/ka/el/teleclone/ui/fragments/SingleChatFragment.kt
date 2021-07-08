@@ -9,6 +9,7 @@ import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 
 class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
@@ -31,7 +32,21 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
         mDatabaseReference = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         mDatabaseReference.addValueEventListener(mListener)
         mapListeners[mDatabaseReference] = mListener
+
+        chat_btn_send_message.setOnClickListener {
+            val message = chat_message_input.text.toString()
+
+            if (!message.isEmpty()) {
+                sendMessage(message, contact.id, TYPE_TEXT) {
+                    chat_message_input.setText("")
+                }
+            }
+        }
+
+
     }
+
+
 
     private fun updateToolInfo() {
         mToolBar.toolbar_info_name.text =

@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -22,6 +23,8 @@ lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var USER: User
 lateinit var UID: String
 
+const val TYPE_TEXT = "text"
+
 const val NODE_USERS = "users"
 
 const val CHILD_ID = "id"
@@ -32,10 +35,16 @@ const val CHILD_BIO = "bio"
 const val CHILD_PHOTO_URl = "photo_url"
 const val CHILD_STATE = "state"
 
-const val NODE_USERS_NAME = "users_name"
 
+const val NODE_USERS_NAME = "users_name"
 const val NODE_PHONES = "phones"
 const val NODE_PHONES_CONTACTS = "phones_contacts"
+
+const val NODE_MESSAGES = "messages"
+const val CHILD_TEXT = "text"
+const val CHILD_FROM = "from"
+const val CHILD_TIMESTAMP = "timestamp"
+const val CHILD_TYPE = "type"
 
 
 /* Storage */
@@ -54,22 +63,30 @@ fun initFirebase() {
 
 
 inline fun putUrlToDatabase(photoUrl: String, crossinline function: () -> Unit) {
+
     REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_PHOTO_URl)
         .setValue(photoUrl)
-        .addOnCompleteListener { function() }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnCompleteListener {
+            function() }
+        .addOnFailureListener {
+            showToast(it.message.toString()) }
 }
 
 inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url: String) -> Unit) {
     path.downloadUrl
-        .addOnCompleteListener { function(it.result.toString()) }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnCompleteListener {
+            function(it.result.toString())
+        }
+        .addOnFailureListener {
+            showToast(it.message.toString()) }
 }
 
 inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
     path.putFile(uri)
-        .addOnSuccessListener { function() }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            function() }
+        .addOnFailureListener {
+            showToast(it.message.toString()) }
 }
 
 inline fun initUser(crossinline function: () -> Unit) {
@@ -77,6 +94,9 @@ inline fun initUser(crossinline function: () -> Unit) {
         REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
             .addListenerForSingleValueEvent(AppValueEventListener {
                 USER = it.getValue(User::class.java) ?: User()
+                if (USER.id != "" && USER.full_name == "") {
+                    USER.full_name = USER.user_name
+                }
                 function()
             })
     } else {
@@ -149,3 +169,26 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
 
 fun DataSnapshot.getCommonModel(): CommonModel = this.getValue(CommonModel::class.java) ?: CommonModel()
 fun DataSnapshot.getUserModel(): User = this.getValue(User::class.java) ?: User()
+
+
+fun sendMessage(message: String, receivingUserId: String, type: String, function: () -> Unit) {
+
+    val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserId"
+    val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$UID"
+
+    val messageId = REF_DATABASE_ROOT.child(refDialogUser).push().key
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_FROM] = UID
+    mapMessage[CHILD_TYPE] = type
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[CHILD_TEXT] = message
+
+    val mapDialogs = hashMapOf<String, Any>()
+    mapDialogs["$refDialogUser/$messageId"] = mapMessage
+    mapDialogs["$refDialogReceivingUser/$messageId"] = mapMessage
+
+    REF_DATABASE_ROOT.updateChildren(mapDialogs)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}

@@ -10,5 +10,6 @@ class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventL
     }
 
     override fun onCancelled(error: DatabaseError) {
+        println()
     }
 }
