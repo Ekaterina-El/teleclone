@@ -2,14 +2,18 @@ package ka.el.teleclone.utils
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginBottom
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
+import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 import ka.el.teleclone.R
 
 fun showToast(message: String) {
@@ -58,4 +62,15 @@ fun ImageView.downloadAndSetImage(url: String) {
         .fit()
         .placeholder(R.drawable.default_photo)
         .into(this)
+}
+
+fun View.setMargins(
+    left: Int = this.marginLeft,
+    top: Int = this.marginTop,
+    right: Int = this.marginRight,
+    bottom: Int = this.marginBottom,
+) {
+    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
+        setMargins(left, top, right, bottom)
+    }
 }

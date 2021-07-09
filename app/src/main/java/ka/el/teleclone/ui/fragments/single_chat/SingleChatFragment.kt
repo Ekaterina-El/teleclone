@@ -1,10 +1,12 @@
 package ka.el.teleclone.ui.fragments
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
+import ka.el.teleclone.ui.fragments.single_chat.SingleChatAdapter
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,10 +19,37 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
     private lateinit var mContactInfo: User
     private lateinit var mListener: AppValueEventListener
     private lateinit var mDatabaseReference: DatabaseReference
+
+    private lateinit var chatRecycleView: RecyclerView
+    private lateinit var mAdapter: SingleChatAdapter
+    private var mMessagesList = emptyList<CommonModel>()
+    private lateinit var mDialogRef: DatabaseReference
+    private lateinit var mDialogListener: AppValueEventListener
+
     private val mapListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
 
     override fun onResume() {
         super.onResume()
+        initToolbar()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        chatRecycleView = single_chat_list
+        mAdapter = SingleChatAdapter()
+        chatRecycleView.adapter = mAdapter
+
+        mDialogListener = AppValueEventListener { ds ->
+            mMessagesList = ds.children.map { it.getCommonModel() }
+            mAdapter.setMessages(mMessagesList)
+            chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+        }
+        mDialogRef = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(contact.id)
+        mDialogRef.addValueEventListener(mDialogListener)
+        mapListeners[mDialogRef] = mDialogListener
+    }
+
+    private fun initToolbar() {
         mToolBar = APP_ACTIVITY.mainToolbar.toolbar_info
         mToolBar.visibility = View.VISIBLE
 
@@ -42,10 +71,7 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
                 }
             }
         }
-
-
     }
-
 
 
     private fun updateToolInfo() {

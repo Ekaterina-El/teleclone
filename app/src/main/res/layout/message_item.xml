@@ -1,41 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/normal_margin"
-    android:layout_marginEnd="100dp"
-    android:layout_marginStart="@dimen/normal_margin"
-    android:gravity="start"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
+    <!--Receiver-->
     <LinearLayout
-        android:id="@+id/chat_message_wrapper"
-        android:layout_width="wrap_content"
+        android:id="@+id/chat_receiver_message_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_message"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/normal_margin"
-        android:paddingRight="@dimen/normal_margin"
-        android:paddingBottom="@dimen/very_small_margin">
+        android:layout_marginVertical="@dimen/small_margin"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/message_limiter"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/chat_text_message"
-            style="@style/normal_text"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/normal_margin"
-            android:textColor="@color/dark"
-            tools:text="Привет, я твой внутрений голос.\nДавай поиграем?" />
+        <RelativeLayout
+            android:id="@+id/chat_receiver_message_wrapper"
+            android:layout_width="wrap_content"
+            android:background="@drawable/bg_message"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/normal_margin"
+            android:paddingBottom="@dimen/very_small_margin">
 
-        <TextView
-            android:id="@+id/time"
-            style="@style/small_text"
-            android:gravity="end"
-            android:textColor="@color/green"
-            android:textSize="@dimen/very_small_text_size"
-            tools:text="03:21" />
+            <TextView
+                android:id="@+id/chat_receiver_text_message"
+                style="@style/normal_text"
+                android:minWidth="@dimen/message_min_width"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal_margin"
+                android:textColor="@color/dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="G" />
+
+            <TextView
+                android:id="@+id/chat_receiver_time_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="@dimen/message_min_width"
+                android:gravity="end"
+                android:layout_below="@id/chat_receiver_text_message"
+                android:layout_alignEnd="@+id/chat_receiver_text_message"
+                android:textColor="@color/grey_light"
+                android:textSize="@dimen/very_small_text_size"
+                tools:text="03:21" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <!--User-->
+    <LinearLayout
+        android:id="@+id/chat_user_message_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/small_margin"
+        android:layout_marginStart="@dimen/message_limiter"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/chat_user_message_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_user_message"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/normal_margin"
+            android:paddingBottom="@dimen/very_small_margin">
+
+            <TextView
+                android:id="@+id/chat_user_text_message"
+                style="@style/normal_text"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/normal_margin"
+                android:textColor="@color/dark"
+                tools:text="Привет, я твой внутрений голос.\nДавай поиграем?" />
+
+            <TextView
+                android:id="@+id/chat_user_time_message"
+                style="@style/small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textColor="@color/green"
+                android:textSize="@dimen/very_small_text_size"
+                tools:text="03:21" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
