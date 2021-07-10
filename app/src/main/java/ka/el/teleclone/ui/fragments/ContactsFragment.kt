@@ -2,6 +2,7 @@ package ka.el.teleclone.ui.fragments
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -9,6 +10,7 @@ import com.google.firebase.database.DatabaseReference
 import de.hdodenhof.circleimageview.CircleImageView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
+import ka.el.teleclone.ui.fragments.single_chat.SingleCharFragment
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.contact_item.view.*
@@ -16,19 +18,18 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 
 class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mAdapter:FirebaseRecyclerAdapter<CommonModel, ContactsHolder>
+    private lateinit var mAdapter: FirebaseRecyclerAdapter<CommonModel, ContactsHolder>
     private lateinit var mRefContacts: DatabaseReference
     private lateinit var mRefUsers: DatabaseReference
 
     private lateinit var mUsersListener: AppValueEventListener
     private val mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
 
-    class ContactsHolder(view: View): RecyclerView.ViewHolder(view) {
-        val full_name = view.contact_full_name
-        val state = view.contact_state
-        val photo:CircleImageView = view.contact_photo
+    class ContactsHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val fullName: TextView = view.contact_full_name
+        val state: TextView = view.contact_state
+        val photo: CircleImageView = view.contact_photo
     }
-
 
 
     override fun onResume() {
@@ -47,7 +48,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
             .setQuery(mRefContacts, CommonModel::class.java)
             .build()
 
-        mAdapter = object: FirebaseRecyclerAdapter<CommonModel, ContactsHolder>(options){
+        mAdapter = object : FirebaseRecyclerAdapter<CommonModel, ContactsHolder>(options) {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsHolder {
                 val view = layoutInflater.inflate(R.layout.contact_item, parent, false)
                 return ContactsHolder(view)
@@ -63,12 +64,13 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                 mUsersListener = AppValueEventListener {
                     val contact = it.getCommonModel()
 
-                    holder.full_name.text = if(contact.full_name != "") contact.full_name else model.full_name
+                    holder.fullName.text =
+                        if (contact.full_name != "") contact.full_name else model.full_name
                     holder.state.text = contact.state
                     holder.photo.downloadAndSetImage(contact.photo_url)
 
                     holder.itemView.setOnClickListener {
-                        APP_ACTIVITY.replaceFragment(R.id.dataContainer, SingleCharFragment(model))
+                        replaceFragment(SingleCharFragment(model))
                     }
                 }
 
@@ -84,13 +86,6 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
     override fun onStop() {
         super.onStop()
         mAdapter.stopListening()
-
-        clearMemory()
-    }
-
-    private fun clearMemory() {
-        mapListener.forEach {
-            it.key.removeEventListener(it.value)
-        }
+        clearMemory(mapListener)
     }
 }

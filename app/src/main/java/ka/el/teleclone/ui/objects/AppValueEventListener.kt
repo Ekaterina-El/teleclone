@@ -3,6 +3,7 @@ package ka.el.teleclone.ui.objects
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import ka.el.teleclone.utils.showToast
 
 class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventListener {
     override fun onDataChange(snapshot: DataSnapshot) {
@@ -10,6 +11,6 @@ class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventL
     }
 
     override fun onCancelled(error: DatabaseError) {
-        println()
+        showToast(error.message)
     }
 }

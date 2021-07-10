@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.EnterPhoneFragment">
+    tools:context=".ui.fragments.registration.EnterPhoneFragment">
 
     <EditText
         android:id="@+id/enter_phone"
         style="@style/editText"
-        android:layout_marginHorizontal="@dimen/normal_margin"
-        android:layout_marginTop="60dp"
+        android:layout_margin="@dimen/normal_margin"
+        android:backgroundTint="@android:color/transparent"
+        android:hint="@string/enter_phone_hint"
+        android:paddingHorizontal="@dimen/normal_margin"
+        android:textColorHint="@color/grey_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="LabelFor"
-
-        tools:targetApi="lollipop" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/enter_phone_fab_next"

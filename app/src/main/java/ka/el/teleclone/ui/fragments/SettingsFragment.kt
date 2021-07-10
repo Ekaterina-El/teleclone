@@ -2,35 +2,28 @@ package ka.el.teleclone.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
-import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.google.firebase.storage.StorageReference
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
-import ka.el.teleclone.activities.RegistrationActivity
-import ka.el.teleclone.databinding.FragmentChatBinding
-import ka.el.teleclone.databinding.FragmentSettingsBinding
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
+
     override fun onResume() {
         super.onResume()
+
         setHasOptionsMenu(true)
-
-        activity?.title = getString(R.string.settings)
-
+        APP_ACTIVITY.title = getString(R.string.settings)
         initFields()
     }
 
     private fun initFields() {
-        if (!USER.photo_url.isEmpty()) {
+        if (USER.photo_url.isNotEmpty()) {
             profile_image.downloadAndSetImage(USER.photo_url)
         }
 
@@ -41,10 +34,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settings_bio.text = USER.bio
 
         settings_btn_user_name.setOnClickListener {
-            replaceFragment(R.id.dataContainer, ChangeUserNameFragment())
+            replaceFragment(ChangeUserNameFragment())
         }
         settings_btn_bio.setOnClickListener {
-            replaceFragment(R.id.dataContainer, ChangeBioFragment())
+            replaceFragment(ChangeBioFragment())
         }
 
 
@@ -60,7 +53,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.settings_menu, menu)
+        APP_ACTIVITY.menuInflater.inflate(R.menu.settings_menu, menu)
     }
 
 
@@ -70,11 +63,11 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             R.id.settings_exit -> {
                 AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
-                (activity as MainActivity).replaceActivity(RegistrationActivity())
+                restartActivity()
             }
 
             R.id.settings_change_name -> {
-                (activity as MainActivity).replaceFragment(R.id.dataContainer, ChangeNameFragment())
+                replaceFragment(ChangeNameFragment())
             }
         }
 

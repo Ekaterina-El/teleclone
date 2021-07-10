@@ -1,4 +1,4 @@
-package ka.el.teleclone.ui.fragments
+package ka.el.teleclone.ui.fragments.single_chat
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseReference
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
-import ka.el.teleclone.ui.fragments.single_chat.SingleChatAdapter
+import ka.el.teleclone.ui.fragments.BaseFragment
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 
-class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragment_single_chat) {
+class SingleCharFragment(private val contact: CommonModel) :
+    BaseFragment(R.layout.fragment_single_chat) {
+
     private lateinit var mToolBar: View
     private lateinit var mContactInfo: User
     private lateinit var mListener: AppValueEventListener
@@ -65,7 +67,7 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
         chat_btn_send_message.setOnClickListener {
             val message = chat_message_input.text.toString()
 
-            if (!message.isEmpty()) {
+            if (message.isNotEmpty()) {
                 sendMessage(message, contact.id, TYPE_TEXT) {
                     chat_message_input.setText("")
                 }
@@ -84,13 +86,6 @@ class SingleCharFragment(val contact: CommonModel) : BaseFragment(R.layout.fragm
     override fun onPause() {
         super.onPause()
         APP_ACTIVITY.mainToolbar.toolbar_info.visibility = View.GONE
-
-        clearMemory()
-    }
-
-    private fun clearMemory() {
-        mapListeners.forEach {
-            it.key.removeEventListener(it.value)
-        }
+        clearMemory(mapListeners)
     }
 }

@@ -1,7 +1,8 @@
 package ka.el.teleclone.ui.fragments
 
-import android.view.*
-import ka.el.teleclone.MainActivity
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import ka.el.teleclone.R
 import ka.el.teleclone.utils.APP_ACTIVITY
 import ka.el.teleclone.utils.hideKeyboard
@@ -28,17 +29,15 @@ open class BaseChangeFragment(layout: Int) : BaseFragment(layout) {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        (activity as MainActivity).menuInflater.inflate(R.menu.change_name_menu, menu)
+        APP_ACTIVITY.menuInflater.inflate(R.menu.change_name_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         when (item.itemId) {
             R.id.change_name_save -> {
                 change()
             }
         }
-
         return true
     }
 }

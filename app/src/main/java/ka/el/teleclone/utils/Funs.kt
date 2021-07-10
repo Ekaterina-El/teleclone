@@ -14,44 +14,40 @@ import androidx.core.view.marginRight
 import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
-fun AppCompatActivity.replaceFragment(container: Int, fragment: Fragment, addToBackStack:Boolean = true) {
+fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
     if (addToBackStack) {
-        supportFragmentManager
+        APP_ACTIVITY.supportFragmentManager
             .beginTransaction()
             .addToBackStack(null)
-            .replace(container, fragment)
-            .commit()
+            .replace(R.id.dataContainer, fragment)
+        .commit()
     } else {
-        supportFragmentManager
+        APP_ACTIVITY.supportFragmentManager
             .beginTransaction()
-            .add(container, fragment)
+            .add(R.id.dataContainer, fragment)
             .commit()
     }
 
 }
 
-fun Fragment.replaceFragment(container: Int, fragment: Fragment) {
-    fragmentManager
-        ?.beginTransaction()
-        ?.addToBackStack(null)
-        ?.replace(container, fragment)
-        ?.commit()
+fun restartActivity() {
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
-    val intent = Intent(this, activity::class.java)
-    startActivity(intent)
-    this.finish()
-}
-
-fun  AppCompatActivity.hideKeyboard() {
-    val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+fun AppCompatActivity.hideKeyboard() {
+    val imm: InputMethodManager =
+        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
 }
 
@@ -64,13 +60,8 @@ fun ImageView.downloadAndSetImage(url: String) {
         .into(this)
 }
 
-fun View.setMargins(
-    left: Int = this.marginLeft,
-    top: Int = this.marginTop,
-    right: Int = this.marginRight,
-    bottom: Int = this.marginBottom,
-) {
-    layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
-        setMargins(left, top, right, bottom)
-    }
+fun String.asTime(): String {
+    val date = Date(this.toLong())
+    val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return dateFormatter.format(date)
 }

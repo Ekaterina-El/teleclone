@@ -2,11 +2,8 @@ package ka.el.teleclone.ui.objects
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -26,7 +23,7 @@ import ka.el.teleclone.utils.USER
 import ka.el.teleclone.utils.downloadAndSetImage
 import ka.el.teleclone.utils.replaceFragment
 
-class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
+class AppDrawer {
     private lateinit var mDrawer: Drawer
     private lateinit var mHeader: AccountHeader
     private lateinit var mDrawerLayout: DrawerLayout
@@ -41,31 +38,32 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
     }
 
     fun disableDrawer() {
+        /* Отключение выдвигающего меню */
         mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false
-        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
-        toolbar.setNavigationOnClickListener {
-            mainActivity.supportFragmentManager.popBackStack()
+        APP_ACTIVITY.mToolbar.setNavigationOnClickListener {
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
         }
     }
 
     fun enableDrawer() {
-        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true
         mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-
-        toolbar.setNavigationOnClickListener {
+        APP_ACTIVITY.mToolbar.setNavigationOnClickListener {
             mDrawer.openDrawer()
         }
     }
 
+
+
     private fun createDrawer() {
         mDrawer = DrawerBuilder()
-            .withActivity(mainActivity)
+            .withActivity(APP_ACTIVITY)
             .withAccountHeader(mHeader)
             .withSelectedItem(-1)
-            .withToolbar(toolbar)
+            .withToolbar(APP_ACTIVITY.mToolbar)
             .withActionBarDrawerToggle(true)
             .addDrawerItems(
                 PrimaryDrawerItem()
@@ -132,26 +130,18 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
                     position: Int,
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
-                    Log.d("TAG", "Identifier: ${drawerItem.identifier}")
-
                     clickOnItemDrawer(drawerItem.identifier)
 
                     return false
                 }
 
-            })
-            .build()
+            }).build()
     }
 
     private fun clickOnItemDrawer(identifier: Long) {
         when (identifier) {
-            105L -> {
-                APP_ACTIVITY.replaceFragment(R.id.dataContainer, SettingsFragment())
-            }
-
-            102L -> {
-                APP_ACTIVITY.replaceFragment(R.id.dataContainer, ContactsFragment())
-            }
+            105L -> replaceFragment(SettingsFragment())
+            102L -> replaceFragment(ContactsFragment())
         }
     }
 
@@ -163,7 +153,7 @@ class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
             .withIdentifier(200)
 
         mHeader = AccountHeaderBuilder()
-            .withActivity(mainActivity)
+            .withActivity(APP_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
             .addProfiles(
                 mCurrentProfile

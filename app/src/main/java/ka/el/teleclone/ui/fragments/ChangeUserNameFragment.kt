@@ -23,49 +23,27 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
      override fun change() {
         mNewUserName = change_user_name.text.toString().toLowerCase(Locale.getDefault())
 
-        if (mNewUserName.isEmpty()) {
-            showToast(getString(R.string.error_change_user_name_empty))
-        }
-        else if (mNewUserName.equals("Inactive user")) {
-            showToast(getString(R.string.invalide_user_name))
-        }
-        else {
-            REF_DATABASE_ROOT.child(NODE_USERS_NAME).child(mNewUserName).setValue(UID)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        changeUserNameDB()
-                    } else {
-                        showToast(it.exception.toString())
-                    }
-                }
-        }
+         when {
+             mNewUserName.isEmpty() -> {
+                 showToast(getString(R.string.error_change_user_name_empty))
+             }
+
+             mNewUserName == "Inactive user" -> {
+                 showToast(getString(R.string.invalide_user_name))
+             }
+
+             else -> {
+                 REF_DATABASE_ROOT.child(NODE_USERS_NAME).child(mNewUserName).setValue(UID)
+                     .addOnCompleteListener {
+                         if (it.isSuccessful) {
+                             changeUserNameDB(mNewUserName)
+                         } else {
+                             showToast(it.exception.toString())
+                         }
+                     }
+             }
+         }
     }
 
-    private fun changeUserNameDB() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_USER_NAME).setValue(mNewUserName)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    if (mNewUserName.equals(USER.user_name)) {
-                        fragmentManager?.popBackStack()
-                    } else {
-                        deleteOldUserName()
-                    }
-                } else {
-                    showToast(it.exception.toString())
-                }
-            }
-    }
 
-    private fun deleteOldUserName() {
-        REF_DATABASE_ROOT.child(NODE_USERS_NAME).child(USER.user_name).removeValue()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    showToast(getString(R.string.update_data))
-                    USER.user_name = mNewUserName
-                    fragmentManager?.popBackStack()
-                } else {
-                    showToast(it.exception.toString())
-                }
-            }
-    }
 }

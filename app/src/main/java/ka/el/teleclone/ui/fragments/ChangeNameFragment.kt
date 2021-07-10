@@ -1,16 +1,12 @@
 package ka.el.teleclone.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
-import ka.el.teleclone.activities.RegistrationActivity
-import ka.el.teleclone.utils.*
+import ka.el.teleclone.utils.USER
+import ka.el.teleclone.utils.changeFullName
+import ka.el.teleclone.utils.showToast
 import kotlinx.android.synthetic.main.fragment_change_name.*
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
-
 
     override fun onResume() {
         super.onResume()
@@ -34,18 +30,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
         if (name.isEmpty()) {
             showToast(getString(R.string.change_name_error))
         } else {
-            val full_name = "$name $surname"
-
-            REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_FULL_NAME)
-                .setValue(full_name).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    USER.full_name = full_name
-                    showToast("Данные обновленны")
-                    fragmentManager?.popBackStack()
-                }
-            }
+            changeFullName("$name $surname")
         }
     }
-
-
 }

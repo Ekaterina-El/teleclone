@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.utils.UID
-import ka.el.teleclone.utils.setMargins
+import ka.el.teleclone.utils.asTime
 import kotlinx.android.synthetic.main.message_item.view.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewHolder>() {
 
-    var listMessagesCache = emptyList<CommonModel>()
+    private var listMessagesCache = emptyList<CommonModel>()
 
     class SingleChatViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
         var chatReceiverMessageParent: LinearLayout = view.chat_receiver_message_parent
@@ -31,7 +29,7 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SingleChatAdapter.SingleChatViewHolder {
+    ): SingleChatViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item, parent, false)
         return SingleChatViewHolder(view)
     }
@@ -62,8 +60,3 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
 
 }
 
-private fun String.asTime(): String {
-    val date = Date(this.toLong())
-    val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return dateFormatter.format(date)
-}
