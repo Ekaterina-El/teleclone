@@ -3,10 +3,7 @@ package ka.el.teleclone.utils
 import android.net.Uri
 import android.provider.ContactsContract
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import ka.el.teleclone.R
@@ -247,6 +244,13 @@ fun saveBio(newBio: String) {
 }
 
 fun clearMemory(listenersList: Map<DatabaseReference, AppValueEventListener>) {
+    listenersList.forEach {
+        it.key.removeEventListener(it.value)
+    }
+}
+
+@JvmName("clear memory for childEventListener")
+fun clearMemory(listenersList: Map<DatabaseReference, ChildEventListener>) {
     listenersList.forEach {
         it.key.removeEventListener(it.value)
     }

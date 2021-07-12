@@ -2,11 +2,13 @@ package ka.el.teleclone.ui.fragments.single_chat
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.fragments.BaseFragment
+import ka.el.teleclone.ui.objects.AppChildEventListener
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,11 +26,11 @@ class SingleCharFragment(private val contact: CommonModel) :
 
     private lateinit var chatRecycleView: RecyclerView
     private lateinit var mAdapter: SingleChatAdapter
-    private var mMessagesList = emptyList<CommonModel>()
     private lateinit var mDialogRef: DatabaseReference
-    private lateinit var mDialogListener: AppValueEventListener
+    private lateinit var mDialogListener: ChildEventListener
 
-    private val mapListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
+    private val mapAppValueEventListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
+    private val mapAppChildEventListeners = hashMapOf<DatabaseReference, ChildEventListener>()
 
     override fun onResume() {
         super.onResume()
@@ -41,14 +43,14 @@ class SingleCharFragment(private val contact: CommonModel) :
         mAdapter = SingleChatAdapter()
         chatRecycleView.adapter = mAdapter
 
-        mDialogListener = AppValueEventListener { ds ->
-            mMessagesList = ds.children.map { it.getCommonModel() }
-            mAdapter.setMessages(mMessagesList)
+        mDialogListener = AppChildEventListener {
+            mAdapter.addItem(it.getCommonModel())
             chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
         }
+
         mDialogRef = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(contact.id)
-        mDialogRef.addValueEventListener(mDialogListener)
-        mapListeners[mDialogRef] = mDialogListener
+        mDialogRef.addChildEventListener(mDialogListener)
+        mapAppChildEventListeners[mDialogRef] = mDialogListener
     }
 
     private fun initToolbar() {
@@ -62,7 +64,7 @@ class SingleCharFragment(private val contact: CommonModel) :
         }
         mDatabaseReference = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         mDatabaseReference.addValueEventListener(mListener)
-        mapListeners[mDatabaseReference] = mListener
+        mapAppValueEventListeners[mDatabaseReference] = mListener
 
         chat_btn_send_message.setOnClickListener {
             val message = chat_message_input.text.toString()
@@ -86,6 +88,7 @@ class SingleCharFragment(private val contact: CommonModel) :
     override fun onPause() {
         super.onPause()
         APP_ACTIVITY.mainToolbar.toolbar_info.visibility = View.GONE
-        clearMemory(mapListeners)
+        clearMemory(mapAppValueEventListeners)
+        clearMemory(mapAppChildEventListeners)
     }
 }

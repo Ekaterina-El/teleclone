@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
+import ka.el.teleclone.utils.DiffUtilCallback
 import ka.el.teleclone.utils.UID
 import ka.el.teleclone.utils.asTime
 import kotlinx.android.synthetic.main.message_item.view.*
@@ -53,10 +55,14 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
 
     override fun getItemCount(): Int = listMessagesCache.size
 
-    fun setMessages(messagesList: List<CommonModel>) {
-        listMessagesCache = messagesList
-        notifyDataSetChanged()
-    }
+    fun addItem(item: CommonModel) {
+        val newList = mutableListOf<CommonModel>()
+        newList.addAll(listMessagesCache)
+        newList.add(item)
 
+        val mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(listMessagesCache, newList))
+        mDiffResult.dispatchUpdatesTo(this)
+        listMessagesCache = newList
+    }
 }
 
