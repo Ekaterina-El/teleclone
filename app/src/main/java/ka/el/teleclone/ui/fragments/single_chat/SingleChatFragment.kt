@@ -1,6 +1,7 @@
 package ka.el.teleclone.ui.fragments.single_chat
 
 import android.view.View
+import android.widget.AbsListView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
@@ -29,6 +30,11 @@ class SingleCharFragment(private val contact: CommonModel) :
     private lateinit var mDialogRef: DatabaseReference
     private lateinit var mDialogListener: ChildEventListener
 
+    private var mCountMessages = 10
+    private val mLoadCountMessages = 10
+    private var mIsScrolling = false
+    private var mSmoothScrollToPosition = true
+
     private val mapAppValueEventListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
     private val mapAppChildEventListeners = hashMapOf<DatabaseReference, ChildEventListener>()
 
@@ -45,11 +51,40 @@ class SingleCharFragment(private val contact: CommonModel) :
 
         mDialogListener = AppChildEventListener {
             mAdapter.addItem(it.getCommonModel())
-            chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+
+            if (mSmoothScrollToPosition) {
+                chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+            }
         }
 
         mDialogRef = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(contact.id)
-        mDialogRef.addChildEventListener(mDialogListener)
+        mDialogRef.limitToLast(mLoadCountMessages).addChildEventListener(mDialogListener)
+        mapAppChildEventListeners[mDialogRef] = mDialogListener
+
+        chatRecycleView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+                    mIsScrolling = true
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (mIsScrolling && dy < 0) {
+                    updateData()
+                }
+            }
+        })
+    }
+
+    private fun updateData() {
+        mIsScrolling = false
+        mSmoothScrollToPosition = false
+        mCountMessages += mLoadCountMessages
+
+        mDialogRef.removeEventListener(mDialogListener)
+        mDialogRef.limitToLast(mCountMessages).addChildEventListener(mDialogListener)
         mapAppChildEventListeners[mDialogRef] = mDialogListener
     }
 
@@ -71,6 +106,7 @@ class SingleCharFragment(private val contact: CommonModel) :
 
             if (message.isNotEmpty()) {
                 sendMessage(message, contact.id, TYPE_TEXT) {
+                    mSmoothScrollToPosition = true
                     chat_message_input.setText("")
                 }
             }
