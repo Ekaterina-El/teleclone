@@ -8,14 +8,19 @@
     android:background="@drawable/bg_chat"
     tools:context=".ui.fragments.single_chat.SingleCharFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/single_chat_list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/sc_swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:listitem="@layout/message_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/single_chat_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/message_item"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

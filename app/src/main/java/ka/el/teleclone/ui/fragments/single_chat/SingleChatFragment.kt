@@ -3,6 +3,7 @@ package ka.el.teleclone.ui.fragments.single_chat
 import android.view.View
 import android.widget.AbsListView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
 import ka.el.teleclone.R
@@ -35,6 +36,8 @@ class SingleCharFragment(private val contact: CommonModel) :
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     private val mapAppValueEventListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
     private val mapAppChildEventListeners = hashMapOf<DatabaseReference, ChildEventListener>()
 
@@ -45,16 +48,20 @@ class SingleCharFragment(private val contact: CommonModel) :
     }
 
     private fun initRecyclerView() {
+        swipeRefreshLayout = sc_swipe_refresh_layout
         chatRecycleView = single_chat_list
         mAdapter = SingleChatAdapter()
         chatRecycleView.adapter = mAdapter
 
         mDialogListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition)
-
-            if (mSmoothScrollToPosition) {
-                chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition) {
+                if (mSmoothScrollToPosition) {
+                    chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+                }
+                swipeRefreshLayout.isRefreshing = false
             }
+
+
         }
 
         mDialogRef = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(contact.id)
@@ -76,6 +83,8 @@ class SingleCharFragment(private val contact: CommonModel) :
                 }
             }
         })
+
+        swipeRefreshLayout.setOnRefreshListener { updateData() }
     }
 
     private fun updateData() {
