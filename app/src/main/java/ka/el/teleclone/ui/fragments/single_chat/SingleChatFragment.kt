@@ -50,7 +50,7 @@ class SingleCharFragment(private val contact: CommonModel) :
         chatRecycleView.adapter = mAdapter
 
         mDialogListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel())
+            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition)
 
             if (mSmoothScrollToPosition) {
                 chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
