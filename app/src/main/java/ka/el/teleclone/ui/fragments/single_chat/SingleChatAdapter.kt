@@ -62,6 +62,9 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
     }
 
     private fun drawMessageImage(holder: SingleChatViewHolder, mMessage: CommonModel) {
+        holder.chatReceiverMessageParent.visibility = View.GONE
+        holder.chatUserMessageParent.visibility = View.GONE
+
         if (mMessage.from == UID) {
             holder.chatUserImageMessageParent.visibility = View.VISIBLE
             holder.chatReceiverImageMessageParent.visibility = View.GONE
@@ -76,6 +79,10 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
     }
 
     private fun drawMessageText(holder: SingleChatViewHolder, mMessage: CommonModel) {
+        holder.chatReceiverImageMessageParent.visibility = View.GONE
+        holder.chatUserImageMessageParent.visibility = View.GONE
+
+
         if (mMessage.from == UID) {
             holder.chatUserMessageParent.visibility = View.VISIBLE
             holder.chatReceiverMessageParent.visibility = View.GONE
