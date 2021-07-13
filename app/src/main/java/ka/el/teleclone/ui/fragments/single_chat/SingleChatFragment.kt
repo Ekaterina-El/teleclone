@@ -91,6 +91,7 @@ class SingleCharFragment(private val contact: CommonModel) :
             putImageToStorage(uri, path) {
                 getUrlFromStorage(path) { photo_url ->
                     sendMessageAsImage(contact.id, messageKey, uri)
+                    mSmoothScrollToPosition = true
                 }
             }
         }
