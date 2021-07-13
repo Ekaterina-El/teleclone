@@ -1,5 +1,8 @@
 package ka.el.teleclone.ui.fragments.single_chat
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.AbsListView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DatabaseReference
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
@@ -16,6 +21,7 @@ import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 
@@ -63,6 +69,32 @@ class SingleCharFragment(private val contact: CommonModel) :
                 chat_btn_send_message.visibility = View.VISIBLE
             }
         })
+
+        chat_btn_attach.setOnClickListener { attachFile() }
+    }
+
+    private fun attachFile() {
+        CropImage.activity()
+            .start(APP_ACTIVITY, this)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if ((requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+            && (resultCode == Activity.RESULT_OK)
+            && (data != null)
+        ) {
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).push().key.toString()
+            val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(messageKey)
+
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) { photo_url ->
+                    sendMessageAsImage(contact.id, messageKey, uri)
+                }
+            }
+        }
     }
 
     private fun initRecyclerView() {

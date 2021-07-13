@@ -41,12 +41,14 @@ const val CHILD_TEXT = "text"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timestamp"
 const val CHILD_TYPE = "type"
+const val CHILD_IMAGE_URL = "image_url"
 
 
 /* Storage */
 
 lateinit var REF_STORAGE_ROOT: StorageReference
 const val FOLDER_PROFILE_PHOTO = "profile_images"
+const val FOLDER_MESSAGE_IMAGE = "message_image"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -250,7 +252,7 @@ fun clearMemory(listenersList: Map<DatabaseReference, AppValueEventListener>) {
     }
 }
 
-@JvmName("clear memory for childEventListener")
+@JvmName("clear_memory_for_childEventListener")
 fun clearMemory(listenersList: Map<DatabaseReference, ChildEventListener>) {
     listenersList.forEach {
         it.key.removeEventListener(it.value)
@@ -272,5 +274,25 @@ fun addPhoneToDatabase(uid: String, phoneNumber: String, function: () -> Unit) {
         .addOnSuccessListener {
             function()
         }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun sendMessageAsImage(receivingUserId: String, messageId: String, url: Uri?) {
+    val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserId"
+    val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$UID"
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_ID] = messageId
+    mapMessage[CHILD_FROM] = UID
+    mapMessage[CHILD_TYPE] = TYPE_MESSAGE_IMAGE
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[CHILD_IMAGE_URL] = url.toString()
+
+
+    val mapDialogs = hashMapOf<String, Any>()
+    mapDialogs["$refDialogUser/$messageId"] = mapMessage
+    mapDialogs["$refDialogReceivingUser/$messageId"] = mapMessage
+
+    REF_DATABASE_ROOT.updateChildren(mapDialogs)
         .addOnFailureListener { showToast(it.message.toString()) }
 }
