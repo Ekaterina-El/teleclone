@@ -47,6 +47,22 @@ class SingleCharFragment(private val contact: CommonModel) :
         super.onResume()
         initToolbar()
         initRecyclerView()
+        initMessageSenders()
+    }
+
+    private fun initMessageSenders() {
+        chat_message_input.addTextChangedListener(AppTextWatcher {
+            val messageText = chat_message_input.text.toString()
+
+            if (messageText.isEmpty()) {
+                chat_btn_attach.visibility = View.VISIBLE
+                chat_btn_send_message.visibility = View.GONE
+
+            } else {
+                chat_btn_attach.visibility = View.GONE
+                chat_btn_send_message.visibility = View.VISIBLE
+            }
+        })
     }
 
     private fun initRecyclerView() {

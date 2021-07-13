@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_chat"
+    android:orientation="vertical"
     tools:context=".ui.fragments.single_chat.SingleCharFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -13,40 +13,49 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/single_chat_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/message_item"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/message_item" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-
         android:background="@color/white"
-        android:padding="@dimen/small_margin"
-        android:orientation="horizontal">
+
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="@dimen/small_margin">
 
         <EditText
             android:id="@+id/chat_message_input"
             style="@style/editText"
-            android:inputType="text"
             android:layout_weight="1"
-            android:textSize="@dimen/normal_text_size"
-            android:hint="Сообщения"
-            android:padding="@dimen/small_margin"
             android:backgroundTint="@android:color/transparent"
-            />
+            android:hint="Сообщения"
+            android:inputType="text"
+            android:padding="@dimen/small_margin"
+            android:textSize="@dimen/normal_text_size" />
 
         <ImageView
             android:id="@+id/chat_btn_send_message"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_send" />
+            android:layout_width="@dimen/chat_btn_size"
+            android:layout_height="@dimen/chat_btn_size"
+            android:src="@drawable/ic_send"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/chat_btn_attach"
+            android:layout_width="@dimen/chat_btn_size"
+            android:layout_height="@dimen/chat_btn_size"
+            android:src="@drawable/ic_attach"
+            android:visibility="visible" />
+
 
     </LinearLayout>
 
