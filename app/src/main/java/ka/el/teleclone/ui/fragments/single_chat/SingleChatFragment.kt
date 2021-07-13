@@ -2,6 +2,7 @@ package ka.el.teleclone.ui.fragments.single_chat
 
 import android.view.View
 import android.widget.AbsListView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.database.ChildEventListener
@@ -37,6 +38,7 @@ class SingleCharFragment(private val contact: CommonModel) :
     private var mSmoothScrollToPosition = true
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mLayoutManager: LinearLayoutManager
 
     private val mapAppValueEventListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
     private val mapAppChildEventListeners = hashMapOf<DatabaseReference, ChildEventListener>()
@@ -48,10 +50,15 @@ class SingleCharFragment(private val contact: CommonModel) :
     }
 
     private fun initRecyclerView() {
+        mLayoutManager = LinearLayoutManager(context)
         swipeRefreshLayout = sc_swipe_refresh_layout
-        chatRecycleView = single_chat_list
         mAdapter = SingleChatAdapter()
+
+        chatRecycleView = single_chat_list
         chatRecycleView.adapter = mAdapter
+        chatRecycleView.layoutManager = mLayoutManager
+        chatRecycleView.isNestedScrollingEnabled = false
+        chatRecycleView.setHasFixedSize(true)
 
         mDialogListener = AppChildEventListener {
             val message = it.getCommonModel()
@@ -81,7 +88,7 @@ class SingleCharFragment(private val contact: CommonModel) :
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (mIsScrolling && dy < 0) {
+                if (mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition() <= 3) {
                     updateData()
                 }
             }
