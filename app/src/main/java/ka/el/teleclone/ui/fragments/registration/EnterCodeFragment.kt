@@ -3,6 +3,7 @@ package ka.el.teleclone.ui.fragments.registration
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.PhoneAuthProvider
 import ka.el.teleclone.R
+import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_enter_code.*
 
@@ -38,11 +39,16 @@ class EnterCodeFragment(private val mPhoneNumber: String, val id: String) :
                 val dataUserMap = mutableMapOf<String, Any>()
                 dataUserMap[CHILD_ID] = uid
                 dataUserMap[CHILD_PHONE_NUMBER] = mPhoneNumber
-                dataUserMap[CHILD_USER_NAME] = uid
 
-                addPhoneToDatabase(uid, mPhoneNumber) {
-                    addUserToDatabase(uid, dataUserMap)
-                }
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).addListenerForSingleValueEvent(AppValueEventListener {
+                    if (!it.hasChild(CHILD_USER_NAME)) {
+                        dataUserMap[CHILD_USER_NAME] = uid
+                    }
+
+                    addPhoneToDatabase(uid, mPhoneNumber) {
+                        addUserToDatabase(uid, dataUserMap)
+                    }
+                })
 
             } else showToast(task.exception.toString())
         }
