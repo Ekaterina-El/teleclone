@@ -56,6 +56,14 @@
             android:src="@drawable/ic_attach"
             android:visibility="visible" />
 
+        <ImageView
+            android:layout_marginLeft="@dimen/small_margin"
+            android:id="@+id/chat_btn_record_voice_message"
+            android:layout_width="@dimen/chat_btn_size"
+            android:layout_height="@dimen/chat_btn_size"
+            android:src="@drawable/ic_voice"
+            android:visibility="visible" />
+
 
     </LinearLayout>
 

@@ -2,8 +2,10 @@ package ka.el.teleclone.ui.fragments.single_chat
 
 import android.app.Activity
 import android.content.Intent
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,6 +23,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SingleCharFragment(private val contact: CommonModel) :
     BaseFragment(R.layout.fragment_single_chat) {
@@ -57,17 +62,40 @@ class SingleCharFragment(private val contact: CommonModel) :
         chat_message_input.addTextChangedListener(AppTextWatcher {
             val messageText = chat_message_input.text.toString()
 
-            if (messageText.isEmpty()) {
+            if (messageText.isEmpty() || messageText == "Record") {
                 chat_btn_attach.visibility = View.VISIBLE
+                chat_btn_record_voice_message.visibility = View.VISIBLE
                 chat_btn_send_message.visibility = View.GONE
-
             } else {
                 chat_btn_attach.visibility = View.GONE
+                chat_btn_record_voice_message.visibility = View.GONE
                 chat_btn_send_message.visibility = View.VISIBLE
             }
         })
 
         chat_btn_attach.setOnClickListener { attachFile() }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            chat_btn_record_voice_message.setOnTouchListener { v, event ->
+                if (checkPermission(RECORD_AUDIO)) {
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        //TODO record
+                        chat_message_input.setText("Record")
+                        chat_btn_record_voice_message.setColorFilter(
+                            ContextCompat.getColor(
+                                APP_ACTIVITY,
+                                R.color.purple_500
+                            )
+                        )
+                    } else if (event.action == MotionEvent.ACTION_UP) {
+                        //TODO stop record
+                        chat_message_input.setText("")
+                        chat_btn_record_voice_message.setColorFilter(ContextCompat.getColor(APP_ACTIVITY, R.color.grey))
+                    }
+                }
+                true
+            }
+        }
     }
 
     private fun attachFile() {
