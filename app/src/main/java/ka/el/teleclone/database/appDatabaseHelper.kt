@@ -181,6 +181,7 @@ fun sendMessage(message: String, receivingUserId: String, type: String, function
     val messageId = REF_DATABASE_ROOT.child(refDialogUser).push().key
 
     val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_ID] = messageId.toString()
     mapMessage[CHILD_FROM] = UID
     mapMessage[CHILD_TYPE] = type
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP

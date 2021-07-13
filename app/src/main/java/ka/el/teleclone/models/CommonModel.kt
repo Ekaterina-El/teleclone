@@ -13,4 +13,8 @@ data class CommonModel(
     val from: String = "",
     val timestamp: Any = "",
     val type: String = "",
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return (other as CommonModel).id == this.id
+    }
+}
