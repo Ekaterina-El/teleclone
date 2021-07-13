@@ -19,8 +19,6 @@ lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var USER: User
 lateinit var UID: String
 
-const val TYPE_TEXT = "text"
-
 const val NODE_USERS = "users"
 
 const val CHILD_ID = "id"

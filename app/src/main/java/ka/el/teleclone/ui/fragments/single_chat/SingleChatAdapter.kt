@@ -3,27 +3,43 @@ package ka.el.teleclone.ui.fragments.single_chat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
-import ka.el.teleclone.utils.UID
-import ka.el.teleclone.utils.asTime
+import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.message_item.view.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewHolder>() {
 
     private var listMessagesCache = mutableListOf<CommonModel>()
 
-    class SingleChatViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
+    class SingleChatViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        // [Text message]
+        // Receiver
         var chatReceiverMessageParent: LinearLayout = view.chat_receiver_message_parent
         var chatReceiverTextMessage: TextView = view.chat_receiver_text_message
         var chatReceiverTimeMessage: TextView = view.chat_receiver_time_message
 
+        // User
         var chatUserMessageParent: LinearLayout = view.chat_user_message_parent
         var chatUserTextMessage: TextView = view.chat_user_text_message
         var chatUserTimeMessage: TextView = view.chat_user_time_message
+
+
+        // [Image message]
+        // Receiver
+        var chatReceiverImageMessageParent: LinearLayout = view.chat_receiver_image_message_parent
+        var chatReceiverImageMessageImg: ImageView = view.chat_receiver_image_message_img
+        var chatReceiverTimeImageMessage: TextView = view.chat_receiver_time_image_message
+
+        // User
+        var chatUserImageMessageParent: LinearLayout = view.chat_user_image_message_parent
+        var chatUserImageMessageImg: ImageView = view.chat_user_image_message_img
+        var chatUserTimeImageMessage: TextView = view.chat_user_time_image_message
+
     }
 
     override fun onCreateViewHolder(
@@ -37,6 +53,29 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
     override fun onBindViewHolder(holder: SingleChatViewHolder, position: Int) {
         val mMessage = listMessagesCache[position]
 
+        when (mMessage.type) {
+            TYPE_MESSAGE_TEXT -> drawMessageText(holder, mMessage)
+            TYPE_MESSAGE_IMAGE -> drawMessageImage(holder, mMessage)
+        }
+
+
+    }
+
+    private fun drawMessageImage(holder: SingleChatViewHolder, mMessage: CommonModel) {
+        if (mMessage.from == UID) {
+            holder.chatUserImageMessageParent.visibility = View.VISIBLE
+            holder.chatReceiverImageMessageParent.visibility = View.GONE
+            holder.chatUserTimeImageMessage.text = mMessage.timestamp.toString().asTime()
+            holder.chatUserImageMessageImg.downloadAndSetImage(mMessage.image_url)
+        } else {
+            holder.chatUserImageMessageParent.visibility = View.GONE
+            holder.chatReceiverImageMessageParent.visibility = View.VISIBLE
+            holder.chatReceiverTimeImageMessage.text = mMessage.timestamp.toString().asTime()
+            holder.chatReceiverImageMessageImg.downloadAndSetImage(mMessage.image_url)
+        }
+    }
+
+    private fun drawMessageText(holder: SingleChatViewHolder, mMessage: CommonModel) {
         if (mMessage.from == UID) {
             holder.chatUserMessageParent.visibility = View.VISIBLE
             holder.chatReceiverMessageParent.visibility = View.GONE
@@ -48,7 +87,6 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatViewH
             holder.chatReceiverTextMessage.text = mMessage.text
             holder.chatReceiverTimeMessage.text = mMessage.timestamp.toString().asTime()
         }
-
     }
 
     override fun getItemCount(): Int = listMessagesCache.size

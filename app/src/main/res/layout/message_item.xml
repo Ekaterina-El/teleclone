@@ -101,7 +101,7 @@
 
     </LinearLayout>
 
-    <!--Receiver [Images]-->
+    <!--Receiver [Image]-->
     <LinearLayout
 
         android:id="@+id/chat_receiver_image_message_parent"
@@ -118,13 +118,12 @@
             android:id="@+id/chat_receiver_image_message_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_message">
+            >
 
             <ImageView
                 android:id="@+id/chat_receiver_image_message_img"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:background="@color/purple_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +134,6 @@
                 style="@style/small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/bg_chat_user_image_message"
                 android:gravity="end"
                 android:paddingHorizontal="@dimen/small_margin"
                 android:textColor="@color/grey_light"
@@ -158,13 +156,12 @@
         android:layout_marginEnd="@dimen/normal_margin"
         android:gravity="end"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/chat_user_iamge_message_wrapper"
+            android:id="@+id/chat_user_image_message_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_user_message"
             android:orientation="vertical"
             android:paddingBottom="@dimen/very_small_margin">
 
@@ -172,9 +169,9 @@
                 android:id="@+id/chat_user_image_message_img"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
-                android:background="@color/purple_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
