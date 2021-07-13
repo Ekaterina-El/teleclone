@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--Receiver-->
+    <!--Receiver [Text]-->
     <LinearLayout
+
         android:id="@+id/chat_receiver_message_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,17 +22,17 @@
         <RelativeLayout
             android:id="@+id/chat_receiver_message_wrapper"
             android:layout_width="wrap_content"
-            android:background="@drawable/bg_message"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_message"
             android:paddingHorizontal="@dimen/normal_margin"
             android:paddingBottom="@dimen/very_small_margin">
 
             <TextView
                 android:id="@+id/chat_receiver_text_message"
                 style="@style/normal_text"
-                android:minWidth="@dimen/message_min_width"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="@dimen/message_min_width"
                 android:paddingTop="@dimen/normal_margin"
                 android:textColor="@color/dark"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -43,10 +44,10 @@
                 android:id="@+id/chat_receiver_time_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="@dimen/message_min_width"
-                android:gravity="end"
                 android:layout_below="@id/chat_receiver_text_message"
                 android:layout_alignEnd="@+id/chat_receiver_text_message"
+                android:gravity="end"
+                android:minWidth="@dimen/message_min_width"
                 android:textColor="@color/grey_light"
                 android:textSize="@dimen/very_small_text_size"
                 tools:text="03:21" />
@@ -55,7 +56,7 @@
 
     </LinearLayout>
 
-    <!--User-->
+    <!--User [Text]-->
     <LinearLayout
         android:id="@+id/chat_user_message_parent"
         android:layout_width="match_parent"
@@ -65,7 +66,7 @@
         android:layout_marginEnd="@dimen/normal_margin"
         android:gravity="end"
         android:orientation="horizontal"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/chat_user_message_wrapper"
@@ -79,9 +80,9 @@
             <TextView
                 android:id="@+id/chat_user_text_message"
                 style="@style/normal_text"
-                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:paddingTop="@dimen/normal_margin"
                 android:textColor="@color/dark"
                 tools:text="Привет, я твой внутрений голос.\nДавай поиграем?" />
@@ -97,6 +98,101 @@
                 tools:text="03:21" />
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <!--Receiver [Images]-->
+    <LinearLayout
+
+        android:id="@+id/chat_receiver_image_message_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/small_margin"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/message_limiter"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_receiver_image_message_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_message">
+
+            <ImageView
+                android:id="@+id/chat_receiver_image_message_img"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:background="@color/purple_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chat_receiver_time_image_message"
+                style="@style/small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_chat_user_image_message"
+                android:gravity="end"
+                android:paddingHorizontal="@dimen/small_margin"
+                android:textColor="@color/grey_light"
+                android:textSize="@dimen/very_small_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="03:21" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <!--User [Image]-->
+    <LinearLayout
+        android:id="@+id/chat_user_image_message_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/small_margin"
+        android:layout_marginStart="@dimen/message_limiter"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chat_user_iamge_message_wrapper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_user_message"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/very_small_margin">
+
+            <ImageView
+                android:id="@+id/chat_user_image_message_img"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:background="@color/purple_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chat_user_time_image_message"
+                style="@style/small_text"
+                android:paddingHorizontal="@dimen/small_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/bg_chat_user_image_message"
+                android:gravity="end"
+                android:textColor="@color/grey_light"
+                android:textSize="@dimen/very_small_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="03:21" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
