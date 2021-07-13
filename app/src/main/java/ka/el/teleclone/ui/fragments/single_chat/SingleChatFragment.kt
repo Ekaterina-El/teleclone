@@ -54,21 +54,24 @@ class SingleCharFragment(private val contact: CommonModel) :
         chatRecycleView.adapter = mAdapter
 
         mDialogListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition) {
-                if (mSmoothScrollToPosition) {
-                    chatRecycleView.smoothScrollToPosition(mAdapter.itemCount)
+            val message = it.getCommonModel()
+
+            if (mSmoothScrollToPosition) {
+                mAdapter.addItemToBottom(message) {
+                    chatRecycleView.smoothScrollToPosition(mAdapter.itemCount - 1)
                 }
-                swipeRefreshLayout.isRefreshing = false
+            } else {
+                mAdapter.addItemToTop(message) {
+                    swipeRefreshLayout.isRefreshing = false
+                }
             }
-
-
         }
 
         mDialogRef = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(contact.id)
         mDialogRef.limitToLast(mLoadCountMessages).addChildEventListener(mDialogListener)
         mapAppChildEventListeners[mDialogRef] = mDialogListener
 
-        chatRecycleView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        chatRecycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
