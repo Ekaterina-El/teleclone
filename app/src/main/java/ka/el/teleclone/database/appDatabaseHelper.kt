@@ -47,7 +47,7 @@ const val CHILD_IMAGE_URL = "image_url"
 
 lateinit var REF_STORAGE_ROOT: StorageReference
 const val FOLDER_PROFILE_PHOTO = "profile_images"
-const val FOLDER_MESSAGE_IMAGE = "message_image"
+const val FOLDER_MESSAGES_FILES = "messages_files"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -81,7 +81,7 @@ inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url:
         }
 }
 
-inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
+inline fun putFileToStorage(uri: Uri, path: StorageReference, crossinline function: () -> Unit) {
     path.putFile(uri)
         .addOnSuccessListener {
             function()
@@ -276,14 +276,14 @@ fun addPhoneToDatabase(uid: String, phoneNumber: String, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageAsImage(receivingUserId: String, messageId: String, url: String) {
+fun sendMessageAsFile(receivingUserId: String, messageId: String, url: String, messageType: String) {
     val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserId"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$UID"
 
     val mapMessage = hashMapOf<String, Any>()
     mapMessage[CHILD_ID] = messageId
     mapMessage[CHILD_FROM] = UID
-    mapMessage[CHILD_TYPE] = TYPE_MESSAGE_IMAGE
+    mapMessage[CHILD_TYPE] = messageType
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
     mapMessage[CHILD_IMAGE_URL] = url
 
@@ -296,9 +296,21 @@ fun sendMessageAsImage(receivingUserId: String, messageId: String, url: String) 
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun uploadFileToStorage(uri: Uri, messageKey: String) {
-    Log.d("TAG", "RECORD OK")
-    showToast("Record OK")
+fun uploadFileToStorage(
+    receiverID: String,
+    messageKey: String,
+    uri: Uri,
+    messageType: String,
+    function: () -> Unit
+) {
+    val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGES_FILES).child(messageKey)
+
+    putFileToStorage(uri, path) {
+        getUrlFromStorage(path) { file_url ->
+            sendMessageAsFile(receiverID, messageKey, file_url, messageType)
+            function()
+        }
+    }
 }
 
 fun getMessageKey(receiverId: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(receiverId).push().key.toString()

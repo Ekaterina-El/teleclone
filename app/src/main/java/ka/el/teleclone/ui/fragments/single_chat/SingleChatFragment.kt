@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
@@ -107,8 +106,9 @@ class SingleCharFragment(private val contact: CommonModel) :
                             )
                         )
                         mVoiceRecorder.stopRecord { file, messageKey ->
-                            Log.d("TAG", "RECORD OK 3")
-                            uploadFileToStorage(Uri.fromFile(file), messageKey)
+                            uploadFileToStorage(contact.id, messageKey, Uri.fromFile(file), TYPE_MESSAGE_VOICE) {
+                                mSmoothScrollToPosition = true
+                            }
                         }
                     }
                 }
@@ -133,16 +133,12 @@ class SingleCharFragment(private val contact: CommonModel) :
         ) {
             val uri = CropImage.getActivityResult(data).uri
             val messageKey = getMessageKey(contact.id)
-            val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(messageKey)
-
-            putImageToStorage(uri, path) {
-                getUrlFromStorage(path) { photo_url ->
-                    sendMessageAsImage(contact.id, messageKey, photo_url)
-                    mSmoothScrollToPosition = true
-                }
+            uploadFileToStorage(contact.id, messageKey, uri, TYPE_MESSAGE_IMAGE) {
+                mSmoothScrollToPosition = true
             }
         }
     }
+
 
     private fun initRecyclerView() {
         mLayoutManager = LinearLayoutManager(context)
