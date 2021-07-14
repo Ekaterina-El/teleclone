@@ -7,6 +7,10 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import ka.el.teleclone.database.AUTH
+import ka.el.teleclone.database.initContacts
+import ka.el.teleclone.database.initFirebase
+import ka.el.teleclone.database.initUser
 import ka.el.teleclone.databinding.ActivityMainBinding
 import ka.el.teleclone.ui.fragments.MainFragment
 import ka.el.teleclone.ui.fragments.registration.EnterPhoneFragment

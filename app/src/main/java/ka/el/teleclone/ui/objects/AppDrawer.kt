@@ -19,7 +19,7 @@ import ka.el.teleclone.R
 import ka.el.teleclone.ui.fragments.ContactsFragment
 import ka.el.teleclone.ui.fragments.SettingsFragment
 import ka.el.teleclone.utils.APP_ACTIVITY
-import ka.el.teleclone.utils.USER
+import ka.el.teleclone.database.USER
 import ka.el.teleclone.utils.downloadAndSetImage
 import ka.el.teleclone.utils.replaceFragment
 

@@ -5,7 +5,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
 import ka.el.teleclone.R
-import ka.el.teleclone.ui.fragments.BaseFragment
+import ka.el.teleclone.database.AUTH
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_enter_phone.*
 import java.util.concurrent.TimeUnit

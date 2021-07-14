@@ -2,8 +2,8 @@ package ka.el.teleclone.ui.fragments
 
 import ka.el.teleclone.R
 import ka.el.teleclone.utils.APP_ACTIVITY
-import ka.el.teleclone.utils.USER
-import ka.el.teleclone.utils.saveBio
+import ka.el.teleclone.database.USER
+import ka.el.teleclone.database.saveBio
 import kotlinx.android.synthetic.main.fragment_change_bio.*
 
 class ChangeBioFragment : BaseChangeFragment(R.layout.fragment_change_bio) {

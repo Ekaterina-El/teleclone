@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ka.el.teleclone.R
+import ka.el.teleclone.database.UID
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.message_item.view.*

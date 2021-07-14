@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import ka.el.teleclone.R
+import ka.el.teleclone.database.*
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 

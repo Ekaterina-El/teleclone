@@ -1,5 +1,7 @@
 package ka.el.teleclone.utils
 
+import ka.el.teleclone.database.*
+
 enum class AppStates(val state: String) {
     ONLINE("в сети"),
     OFFLINE("был недавно"),

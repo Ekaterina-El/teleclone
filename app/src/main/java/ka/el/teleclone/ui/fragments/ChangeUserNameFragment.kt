@@ -1,11 +1,7 @@
 package ka.el.teleclone.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import ka.el.teleclone.MainActivity
 import ka.el.teleclone.R
+import ka.el.teleclone.database.*
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_change_user_name.*
 import java.util.*

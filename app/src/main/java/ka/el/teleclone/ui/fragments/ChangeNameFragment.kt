@@ -1,8 +1,8 @@
 package ka.el.teleclone.ui.fragments
 
 import ka.el.teleclone.R
-import ka.el.teleclone.utils.USER
-import ka.el.teleclone.utils.changeFullName
+import ka.el.teleclone.database.USER
+import ka.el.teleclone.database.changeFullName
 import ka.el.teleclone.utils.showToast
 import kotlinx.android.synthetic.main.fragment_change_name.*
 

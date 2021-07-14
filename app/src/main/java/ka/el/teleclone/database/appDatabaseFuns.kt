@@ -1,8 +1,7 @@
-package ka.el.teleclone.utils
+package ka.el.teleclone.database
 
 import android.net.Uri
 import android.provider.ContactsContract
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -11,43 +10,7 @@ import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.objects.AppValueEventListener
-
-/*RealtimeDatabase*/
-
-lateinit var AUTH: FirebaseAuth
-lateinit var REF_DATABASE_ROOT: DatabaseReference
-
-lateinit var USER: User
-lateinit var UID: String
-
-const val NODE_USERS = "users"
-
-const val CHILD_ID = "id"
-const val CHILD_PHONE_NUMBER = "phone_number"
-const val CHILD_USER_NAME = "user_name"
-const val CHILD_FULL_NAME = "full_name"
-const val CHILD_BIO = "bio"
-const val CHILD_PHOTO_URl = "photo_url"
-const val CHILD_STATE = "state"
-
-
-const val NODE_USERS_NAME = "users_name"
-const val NODE_PHONES = "phones"
-const val NODE_PHONES_CONTACTS = "phones_contacts"
-
-const val NODE_MESSAGES = "messages"
-const val CHILD_TEXT = "text"
-const val CHILD_FROM = "from"
-const val CHILD_TIMESTAMP = "timestamp"
-const val CHILD_TYPE = "type"
-const val CHILD_IMAGE_URL = "image_url"
-
-
-/* Storage */
-
-lateinit var REF_STORAGE_ROOT: StorageReference
-const val FOLDER_PROFILE_PHOTO = "profile_images"
-const val FOLDER_MESSAGES_FILES = "messages_files"
+import ka.el.teleclone.utils.*
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -237,12 +200,13 @@ fun changeFullName(full_name: String) {
 }
 
 fun saveBio(newBio: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_BIO).setValue(newBio).addOnCompleteListener {
-        if (it.isSuccessful) {
-            USER.bio = newBio
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        } else showToast(it.exception.toString())
-    }
+    REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_BIO).setValue(newBio)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                USER.bio = newBio
+                APP_ACTIVITY.supportFragmentManager.popBackStack()
+            } else showToast(it.exception.toString())
+        }
 }
 
 fun clearMemory(listenersList: Map<DatabaseReference, AppValueEventListener>) {
@@ -276,7 +240,12 @@ fun addPhoneToDatabase(uid: String, phoneNumber: String, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageAsFile(receivingUserId: String, messageId: String, url: String, messageType: String) {
+fun sendMessageAsFile(
+    receivingUserId: String,
+    messageId: String,
+    url: String,
+    messageType: String
+) {
     val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserId"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$UID"
 
@@ -313,4 +282,5 @@ fun uploadFileToStorage(
     }
 }
 
-fun getMessageKey(receiverId: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(receiverId).push().key.toString()
+fun getMessageKey(receiverId: String) =
+    REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(receiverId).push().key.toString()
