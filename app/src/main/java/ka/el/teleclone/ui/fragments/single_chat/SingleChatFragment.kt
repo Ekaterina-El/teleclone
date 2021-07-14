@@ -1,7 +1,10 @@
 package ka.el.teleclone.ui.fragments.single_chat
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
@@ -51,13 +54,17 @@ class SingleCharFragment(private val contact: CommonModel) :
     private val mapAppValueEventListeners = hashMapOf<DatabaseReference, AppValueEventListener>()
     private val mapAppChildEventListeners = hashMapOf<DatabaseReference, ChildEventListener>()
 
+    private lateinit var mVoiceRecorder: AppVoiceRecorder
+
     override fun onResume() {
         super.onResume()
+        mVoiceRecorder = AppVoiceRecorder()
         initToolbar()
         initRecyclerView()
         initMessageSenders()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initMessageSenders() {
         chat_message_input.addTextChangedListener(AppTextWatcher {
             val messageText = chat_message_input.text.toString()
@@ -76,10 +83,10 @@ class SingleCharFragment(private val contact: CommonModel) :
         chat_btn_attach.setOnClickListener { attachFile() }
 
         CoroutineScope(Dispatchers.IO).launch {
-            chat_btn_record_voice_message.setOnTouchListener { v, event ->
+            chat_btn_record_voice_message.setOnTouchListener { _, event ->
                 if (checkPermission(RECORD_AUDIO)) {
                     if (event.action == MotionEvent.ACTION_DOWN) {
-                        //TODO record
+                        // Start record
                         chat_message_input.setText("Record")
                         chat_btn_record_voice_message.setColorFilter(
                             ContextCompat.getColor(
@@ -87,10 +94,22 @@ class SingleCharFragment(private val contact: CommonModel) :
                                 R.color.purple_500
                             )
                         )
+                        val messageKey = getMessageKey(contact.id)
+                        mVoiceRecorder.startRecord(messageKey)
+
                     } else if (event.action == MotionEvent.ACTION_UP) {
-                        //TODO stop record
+                        // Stop record
                         chat_message_input.setText("")
-                        chat_btn_record_voice_message.setColorFilter(ContextCompat.getColor(APP_ACTIVITY, R.color.grey))
+                        chat_btn_record_voice_message.setColorFilter(
+                            ContextCompat.getColor(
+                                APP_ACTIVITY,
+                                R.color.grey
+                            )
+                        )
+                        mVoiceRecorder.stopRecord { file, messageKey ->
+                            Log.d("TAG", "RECORD OK 3")
+                            uploadFileToStorage(Uri.fromFile(file), messageKey)
+                        }
                     }
                 }
                 true
@@ -113,12 +132,12 @@ class SingleCharFragment(private val contact: CommonModel) :
             && (data != null)
         ) {
             val uri = CropImage.getActivityResult(data).uri
-            val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).push().key.toString()
+            val messageKey = getMessageKey(contact.id)
             val path = REF_STORAGE_ROOT.child(FOLDER_MESSAGE_IMAGE).child(messageKey)
 
             putImageToStorage(uri, path) {
                 getUrlFromStorage(path) { photo_url ->
-                    sendMessageAsImage(contact.id, messageKey, uri)
+                    sendMessageAsImage(contact.id, messageKey, photo_url)
                     mSmoothScrollToPosition = true
                 }
             }
@@ -221,5 +240,10 @@ class SingleCharFragment(private val contact: CommonModel) :
         APP_ACTIVITY.mainToolbar.toolbar_info.visibility = View.GONE
         clearMemory(mapAppValueEventListeners)
         clearMemory(mapAppChildEventListeners)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mVoiceRecorder.releaseRecord()
     }
 }

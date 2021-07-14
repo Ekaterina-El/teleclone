@@ -2,6 +2,7 @@ package ka.el.teleclone.utils
 
 import android.media.MediaRecorder
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import java.io.File
 
@@ -12,24 +13,18 @@ class AppVoiceRecorder {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun startRecord(messageKey: String) {
-        try {
-            mMessageKey = messageKey
-            createFileForRecord()
-            prepareMediaRecorder()
-            mMediaRecorder.start()
-        } catch (e: Exception) {
-            showToast(e.message.toString())
-        }
+        mMessageKey = messageKey
+        createFileForRecord()
+        prepareMediaRecorder()
+        mMediaRecorder.start()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun prepareMediaRecorder() {
-
         mMediaRecorder.apply {
             reset()
+            setAudioSource(MediaRecorder.AudioSource.DEFAULT)
             setOutputFormat(MediaRecorder.OutputFormat.DEFAULT)
             setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT)
-            setAudioSource(MediaRecorder.AudioSource.DEFAULT)
             setOutputFile(mFile.absoluteFile)
             prepare()
         }
@@ -44,6 +39,7 @@ class AppVoiceRecorder {
         try {
             mMediaRecorder.stop()
             onSuccess(mFile, mMessageKey)
+
         } catch (e: Exception) {
             showToast(e.message.toString())
             mFile.delete()

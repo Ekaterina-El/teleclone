@@ -2,6 +2,7 @@ package ka.el.teleclone.utils
 
 import android.net.Uri
 import android.provider.ContactsContract
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -275,7 +276,7 @@ fun addPhoneToDatabase(uid: String, phoneNumber: String, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageAsImage(receivingUserId: String, messageId: String, url: Uri?) {
+fun sendMessageAsImage(receivingUserId: String, messageId: String, url: String) {
     val refDialogUser = "$NODE_MESSAGES/$UID/$receivingUserId"
     val refDialogReceivingUser = "$NODE_MESSAGES/$receivingUserId/$UID"
 
@@ -284,7 +285,7 @@ fun sendMessageAsImage(receivingUserId: String, messageId: String, url: Uri?) {
     mapMessage[CHILD_FROM] = UID
     mapMessage[CHILD_TYPE] = TYPE_MESSAGE_IMAGE
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
-    mapMessage[CHILD_IMAGE_URL] = url.toString()
+    mapMessage[CHILD_IMAGE_URL] = url
 
 
     val mapDialogs = hashMapOf<String, Any>()
@@ -294,3 +295,10 @@ fun sendMessageAsImage(receivingUserId: String, messageId: String, url: Uri?) {
     REF_DATABASE_ROOT.updateChildren(mapDialogs)
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun uploadFileToStorage(uri: Uri, messageKey: String) {
+    Log.d("TAG", "RECORD OK")
+    showToast("Record OK")
+}
+
+fun getMessageKey(receiverId: String) = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(receiverId).push().key.toString()
