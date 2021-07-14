@@ -19,6 +19,7 @@ import ka.el.teleclone.database.*
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.fragments.BaseFragment
+import ka.el.teleclone.ui.fragments.message_recycler_view.views.AppViewFactory
 import ka.el.teleclone.ui.objects.AppChildEventListener
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
@@ -154,13 +155,14 @@ class SingleCharFragment(private val contact: CommonModel) :
 
         mDialogListener = AppChildEventListener {
             val message = it.getCommonModel()
+            val messageView = AppViewFactory.getView(message)
 
             if (mSmoothScrollToPosition) {
-                mAdapter.addItemToBottom(message) {
+                mAdapter.addItemToBottom(messageView) {
                     chatRecycleView.smoothScrollToPosition(mAdapter.itemCount - 1)
                 }
             } else {
-                mAdapter.addItemToTop(message) {
+                mAdapter.addItemToTop(messageView) {
                     swipeRefreshLayout.isRefreshing = false
                 }
             }

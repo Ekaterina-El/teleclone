@@ -13,7 +13,7 @@ data class CommonModel(
     val from: String = "",
     val timestamp: Any = "",
     val type: String = "",
-    val image_url: String = "empty",
+    val file_url: String = "empty",
 ) {
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == this.id
