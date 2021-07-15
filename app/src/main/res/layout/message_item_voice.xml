@@ -62,7 +62,7 @@
 
     <!--User [Text]-->
     <LinearLayout
-        android:id="@+id/chat_user_message_parent"
+        android:id="@+id/chat_user_voice_message_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/small_margin"
@@ -102,7 +102,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/chat_user_time_message"
+                android:id="@+id/chat_user_time_voice_message"
                 style="@style/small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

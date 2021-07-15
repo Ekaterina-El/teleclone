@@ -13,6 +13,7 @@ import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.ui.fragments.message_recycler_view.view_holders.AppHolderFactory
 import ka.el.teleclone.ui.fragments.message_recycler_view.view_holders.ImageMessageHolder
 import ka.el.teleclone.ui.fragments.message_recycler_view.view_holders.TextMessageHolder
+import ka.el.teleclone.ui.fragments.message_recycler_view.view_holders.VoiceMessageHolder
 import ka.el.teleclone.ui.fragments.message_recycler_view.views.MessageView
 import ka.el.teleclone.utils.*
 
@@ -32,6 +33,7 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         when (holder) {
             is ImageMessageHolder -> holder.drawMessageImage(holder, mMessage)
+            is VoiceMessageHolder -> holder.drawMessageVoice(holder, mMessage)
             is TextMessageHolder -> holder.drawMessageText(holder, mMessage)
             else -> {}
         }
@@ -47,7 +49,7 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun addItemToTop(item: MessageView, onSuccess: () -> Unit) {
         if (!listMessagesCache.contains(item)) {
             listMessagesCache.add(item)
-            listMessagesCache.sortBy { it.timestamp.toString() }
+            listMessagesCache.sortBy { it.timestamp }
             notifyItemInserted(0)
         }
         onSuccess()
