@@ -35,4 +35,7 @@ class ImageMessageHolder(view: View): RecyclerView.ViewHolder(view), MessageHold
             chatReceiverImageMessageImg.downloadAndSetImage(message.file_url)
         }
     }
+
+    override fun onAttach(view: MessageView) {}
+    override fun onDetach() {}
 }

@@ -5,4 +5,6 @@ import ka.el.teleclone.ui.fragments.message_recycler_view.views.MessageView
 
 interface MessageHolder {
     fun drawMessage(message: MessageView)
+    fun onAttach(view: MessageView)
+    fun onDetach()
 }

@@ -33,4 +33,8 @@ class TextMessageHolder(view: View): RecyclerView.ViewHolder(view), MessageHolde
             chatReceiverTimeMessage.text = message.timestamp.asTime()
         }
     }
+
+    override fun onAttach(view: MessageView) {}
+
+    override fun onDetach() {}
 }
