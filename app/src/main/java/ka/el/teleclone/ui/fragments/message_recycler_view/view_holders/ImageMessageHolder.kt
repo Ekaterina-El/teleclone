@@ -11,7 +11,7 @@ import ka.el.teleclone.utils.asTime
 import ka.el.teleclone.utils.downloadAndSetImage
 import kotlinx.android.synthetic.main.message_item_image.view.*
 
-class ImageMessageHolder(view: View): RecyclerView.ViewHolder(view) {
+class ImageMessageHolder(view: View): RecyclerView.ViewHolder(view), MessageHolder {
     // Receiver
     var chatReceiverImageMessageParent: LinearLayout = view.chat_receiver_image_message_parent
     var chatReceiverImageMessageImg: ImageView = view.chat_receiver_image_message_img
@@ -22,17 +22,17 @@ class ImageMessageHolder(view: View): RecyclerView.ViewHolder(view) {
     var chatUserImageMessageImg: ImageView = view.chat_user_image_message_img
     var chatUserTimeImageMessage: TextView = view.chat_user_time_image_message
 
-    fun drawMessageImage(holder: ImageMessageHolder, mMessage: MessageView) {
-        if (mMessage.from == UID) {
-            holder.chatUserImageMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverImageMessageParent.visibility = View.GONE
-            holder.chatUserTimeImageMessage.text = mMessage.timestamp.asTime()
-            holder.chatUserImageMessageImg.downloadAndSetImage(mMessage.file_url)
+    override fun drawMessage(message: MessageView) {
+        if (message.from == UID) {
+            chatUserImageMessageParent.visibility = View.VISIBLE
+            chatReceiverImageMessageParent.visibility = View.GONE
+            chatUserTimeImageMessage.text = message.timestamp.asTime()
+            chatUserImageMessageImg.downloadAndSetImage(message.file_url)
         } else {
-            holder.chatUserImageMessageParent.visibility = View.GONE
-            holder.chatReceiverImageMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverTimeImageMessage.text = mMessage.timestamp.asTime()
-            holder.chatReceiverImageMessageImg.downloadAndSetImage(mMessage.file_url)
+            chatUserImageMessageParent.visibility = View.GONE
+            chatReceiverImageMessageParent.visibility = View.VISIBLE
+            chatReceiverTimeImageMessage.text = message.timestamp.asTime()
+            chatReceiverImageMessageImg.downloadAndSetImage(message.file_url)
         }
     }
 }
