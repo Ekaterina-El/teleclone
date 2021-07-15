@@ -4,6 +4,9 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import ka.el.teleclone.database.UID
+import ka.el.teleclone.ui.fragments.message_recycler_view.views.MessageView
+import ka.el.teleclone.utils.asTime
 import kotlinx.android.synthetic.main.message_item_text.view.*
 
 class TextMessageHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -17,4 +20,18 @@ class TextMessageHolder(view: View): RecyclerView.ViewHolder(view) {
     var chatUserTextMessage: TextView = view.chat_user_text_message
     var chatUserTimeMessage: TextView = view.chat_user_time_message
 
+
+    fun drawMessageText(holder: TextMessageHolder, mMessage: MessageView) {
+        if (mMessage.from == UID) {
+            holder.chatUserMessageParent.visibility = View.VISIBLE
+            holder.chatReceiverMessageParent.visibility = View.GONE
+            holder.chatUserTextMessage.text = mMessage.text
+            holder.chatUserTimeMessage.text = mMessage.timestamp.asTime()
+        } else {
+            holder.chatUserMessageParent.visibility = View.GONE
+            holder.chatReceiverMessageParent.visibility = View.VISIBLE
+            holder.chatReceiverTextMessage.text = mMessage.text
+            holder.chatReceiverTimeMessage.text = mMessage.timestamp.asTime()
+        }
+    }
 }

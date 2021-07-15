@@ -31,8 +31,8 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         val mMessage = listMessagesCache[position]
 
         when (holder) {
-            is ImageMessageHolder -> drawMessageImage(holder, mMessage)
-            is TextMessageHolder -> drawMessageText(holder, mMessage)
+            is ImageMessageHolder -> holder.drawMessageImage(holder, mMessage)
+            is TextMessageHolder -> holder.drawMessageText(holder, mMessage)
             else -> {}
         }
     }
@@ -41,34 +41,6 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return listMessagesCache[position].getTypeView()
     }
 
-    private fun drawMessageImage(holder: ImageMessageHolder, mMessage: MessageView) {
-        if (mMessage.from == UID) {
-            holder.chatUserImageMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverImageMessageParent.visibility = View.GONE
-            holder.chatUserTimeImageMessage.text = mMessage.timestamp.asTime()
-            holder.chatUserImageMessageImg.downloadAndSetImage(mMessage.file_url)
-        } else {
-            holder.chatUserImageMessageParent.visibility = View.GONE
-            holder.chatReceiverImageMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverTimeImageMessage.text = mMessage.timestamp.asTime()
-            holder.chatReceiverImageMessageImg.downloadAndSetImage(mMessage.file_url)
-        }
-    }
-
-    private fun drawMessageText(holder: TextMessageHolder, mMessage: MessageView) {
-
-        if (mMessage.from == UID) {
-            holder.chatUserMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverMessageParent.visibility = View.GONE
-            holder.chatUserTextMessage.text = mMessage.text
-            holder.chatUserTimeMessage.text = mMessage.timestamp.asTime()
-        } else {
-            holder.chatUserMessageParent.visibility = View.GONE
-            holder.chatReceiverMessageParent.visibility = View.VISIBLE
-            holder.chatReceiverTextMessage.text = mMessage.text
-            holder.chatReceiverTimeMessage.text = mMessage.timestamp.asTime()
-        }
-    }
 
     override fun getItemCount(): Int = listMessagesCache.size
 
