@@ -33,6 +33,15 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return listMessagesCache[position].getTypeView()
     }
 
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        (holder as MessageHolder).onAttach(listMessagesCache[holder.adapterPosition])
+        super.onViewAttachedToWindow(holder)
+    }
+
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
+        (holder as MessageHolder).onDetach()
+        super.onViewDetachedFromWindow(holder)
+    }
 
     override fun getItemCount(): Int = listMessagesCache.size
 

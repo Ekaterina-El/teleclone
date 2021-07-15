@@ -11,6 +11,7 @@ import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
+import java.io.File
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -254,7 +255,7 @@ fun sendMessageAsFile(
     mapMessage[CHILD_FROM] = UID
     mapMessage[CHILD_TYPE] = messageType
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
-    mapMessage[CHILD_IMAGE_URL] = url
+    mapMessage[CHILD_FILE_URL] = url
 
 
     val mapDialogs = hashMapOf<String, Any>()
@@ -284,3 +285,8 @@ fun uploadFileToStorage(
 
 fun getMessageKey(receiverId: String) =
     REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(receiverId).push().key.toString()
+
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl).getFile(mFile).addOnCompleteListener { function() }
+}

@@ -25,7 +25,7 @@ const val CHILD_TEXT = "text"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timestamp"
 const val CHILD_TYPE = "type"
-const val CHILD_IMAGE_URL = "image_url"
+const val CHILD_FILE_URL = "file_url"
 lateinit var REF_STORAGE_ROOT: StorageReference
 const val FOLDER_PROFILE_PHOTO = "profile_images"
 const val FOLDER_MESSAGES_FILES = "messages_files"
