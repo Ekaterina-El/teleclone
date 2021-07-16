@@ -44,4 +44,6 @@
     <string name="state_online">в сети</string>
     <string name="contacts_title">Контакты</string>
     <string name="enter_phone_hint">Номер телефона</string>
+    <string name="btn_sheet_image_description">Изображение</string>
+    <string name="btn_sheet_file_description">Файл</string>
 </resources>
