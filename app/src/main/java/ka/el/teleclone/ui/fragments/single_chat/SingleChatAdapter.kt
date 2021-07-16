@@ -17,6 +17,7 @@ import ka.el.teleclone.utils.*
 class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listMessagesCache = mutableListOf<MessageView>()
+    private val mVoiceMessagesHolders = mutableListOf<MessageHolder>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,11 +36,13 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
         (holder as MessageHolder).onAttach(listMessagesCache[holder.adapterPosition])
+        mVoiceMessagesHolders.add(holder as MessageHolder)
         super.onViewAttachedToWindow(holder)
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         (holder as MessageHolder).onDetach()
+        mVoiceMessagesHolders.remove(holder as MessageHolder)
         super.onViewDetachedFromWindow(holder)
     }
 
@@ -60,6 +63,10 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             notifyItemInserted(listMessagesCache.size)
         }
         onSuccess()
+    }
+
+    fun destroy() {
+        mVoiceMessagesHolders.forEach { it.onDetach() }
     }
 }
 

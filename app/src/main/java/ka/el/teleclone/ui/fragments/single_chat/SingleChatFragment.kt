@@ -244,5 +244,6 @@ class SingleCharFragment(private val contact: CommonModel) :
     override fun onDestroyView() {
         super.onDestroyView()
         mVoiceRecorder.releaseRecord()
+        mAdapter.destroy()
     }
 }
