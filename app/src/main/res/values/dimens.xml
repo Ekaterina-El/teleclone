@@ -26,9 +26,11 @@
     <dimen name="message_limiter">100dp</dimen>
     <dimen name="message_min_width">50dp</dimen>
     <dimen name="chat_btn_size">30dp</dimen>
-    <dimen name="voice_message_width">180dp</dimen>
-    <dimen name="voice_message_height">50dp</dimen>
+    <dimen name="attach_message_width">180dp</dimen>
+    <dimen name="attach_message_height">50dp</dimen>
     <dimen name="voice_message_icon">50dp</dimen>
     <dimen name="btn_sheet_icon_width">30dp</dimen>
     <dimen name="btn_sheet_icon_height">30dp</dimen>
+    <dimen name="message_icon_height">50dp</dimen>
+    <dimen name="message_icon_width">50dp</dimen>
 </resources>

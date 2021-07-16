@@ -131,7 +131,6 @@ class SingleCharFragment(private val contact: CommonModel) :
     private fun attach() {
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-        // TODO: Возможно нужно быдет отключать слушатели
         btn_sheet_file.setOnClickListener { attachFile() }
         btn_sheet_image.setOnClickListener { attachImage() }
     }
@@ -150,7 +149,6 @@ class SingleCharFragment(private val contact: CommonModel) :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("TAG", "REQUEST CODE: $requestCode")
 
         if ((resultCode == Activity.RESULT_OK)
             && (data != null)) {

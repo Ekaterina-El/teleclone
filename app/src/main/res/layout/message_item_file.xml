@@ -9,7 +9,7 @@
     <!--Receiver [Text]-->
     <LinearLayout
 
-        android:id="@+id/chat_receiver_voice_message_parent"
+        android:id="@+id/chat_receiver_file_message_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/small_margin"
@@ -20,7 +20,7 @@
         android:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/chat_receiver_voice_message_wrapper"
+            android:id="@+id/chat_receiver_file_message_wrapper"
             android:layout_width="@dimen/attach_message_width"
             android:layout_height="@dimen/attach_message_height"
             android:background="@drawable/bg_message"
@@ -28,27 +28,41 @@
             android:paddingBottom="@dimen/very_small_margin">
 
             <ImageView
-                android:id="@+id/chat_receiver_voice_message_start"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_play_blue"
+                android:id="@+id/chat_receiver_file_message_btn"
+                android:layout_width="@dimen/message_icon_width"
+                android:layout_height="@dimen/message_icon_height"
+                android:src="@drawable/ic_file_blue"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/chat_receiver_voice_message_stop"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_stop_blue"
+            <ProgressBar
+                android:id="@+id/chat_receiver_file_message_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="@dimen/message_icon_width"
+                android:layout_height="@dimen/message_icon_height"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/purple_200"
+                android:indeterminateTintMode="src_atop"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/chat_receiver_time_voice_message"
+                android:id="@+id/chat_receiver_file_message_filename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/purple_200"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/chat_receiver_file_message_btn"
+                android:maxLines="2"
+                tools:text="File_name.pdf" />
+
+            <TextView
+                android:id="@+id/chat_receiver_time_file_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -62,7 +76,7 @@
 
     <!--User [Text]-->
     <LinearLayout
-        android:id="@+id/chat_user_voice_message_parent"
+        android:id="@+id/chat_user_file_message_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/small_margin"
@@ -82,24 +96,38 @@
             android:paddingBottom="@dimen/very_small_margin">
 
             <ImageView
-                android:id="@+id/chat_user_voice_message_start"
-                android:layout_width="@dimen/voice_message_icon"
-                android:layout_height="@dimen/voice_message_icon"
-                android:src="@drawable/ic_play_green"
+                android:id="@+id/chat_user_file_message_btn"
+                android:layout_width="@dimen/message_icon_width"
+                android:layout_height="@dimen/message_icon_height"
+                android:src="@drawable/ic_file_green"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/chat_user_voice_message_stop"
-                android:layout_width="@dimen/voice_message_icon"
-                android:layout_height="@dimen/voice_message_icon"
-                android:src="@drawable/ic_stop_green"
+            <ProgressBar
+                android:id="@+id/chat_user_file_message_progress"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="@dimen/message_icon_width"
+                android:layout_height="@dimen/message_icon_height"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/green"
+                android:indeterminateTintMode="src_atop"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/chat_user_file_message_full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/green"
+                android:textSize="@dimen/normal_text_size"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/chat_user_file_message_btn"
+                android:maxLines="2"
+                tools:text="File_name.pdf" />
 
             <TextView
                 android:id="@+id/chat_user_time_voice_message"
