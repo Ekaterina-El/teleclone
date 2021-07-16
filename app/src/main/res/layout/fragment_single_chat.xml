@@ -74,6 +74,6 @@
 
     </LinearLayout>
 
-    <include layout="@layout/choice_file" />
+    <include layout="@layout/choice_attach" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
