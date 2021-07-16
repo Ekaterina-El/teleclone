@@ -23,6 +23,11 @@ class AppHolderFactory {
                     VoiceMessageHolder(view)
                 }
 
+                MessageView.MESSAGE_FILE -> {
+                    val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item_file, parent, false)
+                    FileMessageHolder(view)
+                }
+
                 else -> {
                     val view = LayoutInflater.from(parent.context).inflate(R.layout.message_item_text, parent, false)
                     TextMessageHolder(view)

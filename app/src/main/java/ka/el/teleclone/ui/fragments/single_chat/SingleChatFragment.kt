@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
@@ -165,8 +164,10 @@ class SingleCharFragment(private val contact: CommonModel) :
                 PEEK_FILE_REQUEST_CODE -> {
                     val uri = data.data
                     val messageKey = getMessageKey(contact.id)
+                    val fileName = getFileName(uri!!)
+
                     uri?.let {
-                        uploadFileToStorage(contact.id, messageKey, it, TYPE_MESSAGE_FILE) {
+                        uploadFileToStorage(contact.id, messageKey, it, TYPE_MESSAGE_FILE, fileName) {
                             mSmoothScrollToPosition = true
                         }
                     }

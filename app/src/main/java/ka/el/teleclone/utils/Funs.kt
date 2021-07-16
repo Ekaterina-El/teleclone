@@ -2,16 +2,12 @@ package ka.el.teleclone.utils
 
 import android.content.Context
 import android.content.Intent
-import android.view.View
-import android.view.ViewGroup
+import android.net.Uri
+import android.provider.OpenableColumns
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginBottom
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import ka.el.teleclone.MainActivity
@@ -29,7 +25,7 @@ fun replaceFragment(fragment: Fragment, addToBackStack: Boolean = true) {
             .beginTransaction()
             .addToBackStack(null)
             .replace(R.id.dataContainer, fragment)
-        .commit()
+            .commit()
     } else {
         APP_ACTIVITY.supportFragmentManager
             .beginTransaction()
@@ -64,4 +60,20 @@ fun String.asTime(): String {
     val date = Date(this.toLong())
     val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
     return dateFormatter.format(date)
+}
+
+fun getFileName(uri: Uri): String {
+    var result = ""
+    val cursor = APP_ACTIVITY.contentResolver.query(uri, null, null, null, null)
+
+    try {
+        if (cursor != null && cursor.moveToFirst()) {
+            result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+    } catch (e: Exception) {
+        showToast(e.message.toString())
+    } finally {
+        cursor?.close()
+        return result
+    }
 }
