@@ -293,3 +293,22 @@ fun getMessageKey(receiverId: String) =
 fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
     REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl).getFile(mFile).addOnCompleteListener { function() }
 }
+
+fun saveToMainList(receiverId: String, type: String) {
+    val refUser = "$NODE_MAIN_LIST/$UID/$receiverId"
+    val refReceiver = "$NODE_MAIN_LIST/$receiverId/$UID"
+
+    val mapUser = hashMapOf<String, Any>()
+    mapUser[CHILD_ID] = receiverId
+    mapUser[CHILD_TYPE] = type
+
+    val mapReceiver = hashMapOf<String, Any>()
+    mapReceiver[CHILD_ID] = UID
+    mapReceiver[CHILD_TYPE] = type
+
+    val forUpdate = hashMapOf<String, Any>()
+    forUpdate[refUser] = mapUser
+    forUpdate[refReceiver] = mapReceiver
+
+    REF_DATABASE_ROOT.updateChildren(forUpdate)
+}

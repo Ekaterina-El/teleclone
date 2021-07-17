@@ -118,6 +118,7 @@ class SingleCharFragment(private val contact: CommonModel) :
                         mVoiceRecorder.stopRecord { file, messageKey ->
                             uploadFileToStorage(contact.id, messageKey, Uri.fromFile(file), TYPE_MESSAGE_VOICE) {
                                 mSmoothScrollToPosition = true
+                                saveToMainList(contact.id, TYPE_CHAT)
                             }
                         }
                     }
@@ -157,6 +158,7 @@ class SingleCharFragment(private val contact: CommonModel) :
                     val uri = CropImage.getActivityResult(data).uri
                     val messageKey = getMessageKey(contact.id)
                     uploadFileToStorage(contact.id, messageKey, uri, TYPE_MESSAGE_IMAGE) {
+                        saveToMainList(contact.id, TYPE_CHAT)
                         mSmoothScrollToPosition = true
                     }
                 }
@@ -168,6 +170,7 @@ class SingleCharFragment(private val contact: CommonModel) :
 
                     uri?.let {
                         uploadFileToStorage(contact.id, messageKey, it, TYPE_MESSAGE_FILE, fileName) {
+                            saveToMainList(contact.id, TYPE_CHAT)
                             mSmoothScrollToPosition = true
                         }
                     }
@@ -253,13 +256,17 @@ class SingleCharFragment(private val contact: CommonModel) :
             val message = chat_message_input.text.toString()
 
             if (message.isNotEmpty()) {
+
                 sendMessage(message, contact.id, TYPE_MESSAGE_TEXT) {
+                    saveToMainList(contact.id, TYPE_CHAT)
                     mSmoothScrollToPosition = true
                     chat_message_input.setText("")
                 }
             }
         }
     }
+
+
 
 
     private fun updateToolInfo() {

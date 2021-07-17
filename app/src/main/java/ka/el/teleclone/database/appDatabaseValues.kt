@@ -29,3 +29,5 @@ const val CHILD_FILE_URL = "file_url"
 lateinit var REF_STORAGE_ROOT: StorageReference
 const val FOLDER_PROFILE_PHOTO = "profile_images"
 const val FOLDER_MESSAGES_FILES = "messages_files"
+
+const val NODE_MAIN_LIST = "main_list"
