@@ -46,4 +46,6 @@
     <string name="enter_phone_hint">Номер телефона</string>
     <string name="btn_sheet_image_description">Изображение</string>
     <string name="btn_sheet_file_description">Файл</string>
+    <string name="chat_menu_delete">Удалить чат</string>
+    <string name="chat_menu_clear">Очистить чат</string>
 </resources>

@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.AbsListView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,9 +67,19 @@ class SingleCharFragment(private val contact: CommonModel) :
         mBottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_choice)
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
+        setHasOptionsMenu(true)
+
         initToolbar()
         initRecyclerView()
         initMessageSenders()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        APP_ACTIVITY.menuInflater.inflate(R.menu.chat_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     @SuppressLint("ClickableViewAccessibility")
