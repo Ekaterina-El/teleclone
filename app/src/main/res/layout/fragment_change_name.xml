@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/normal_margin"
-    tools:context=".ui.fragments.ChangeNameFragment">
+    tools:context=".ui.fragments.settings.ChangeNameFragment">
 
     <EditText
         android:id="@+id/change_name"

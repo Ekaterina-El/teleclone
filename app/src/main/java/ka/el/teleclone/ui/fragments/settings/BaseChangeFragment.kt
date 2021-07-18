@@ -1,9 +1,10 @@
-package ka.el.teleclone.ui.fragments
+package ka.el.teleclone.ui.fragments.settings
 
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import ka.el.teleclone.R
+import ka.el.teleclone.ui.fragments.BaseFragment
 import ka.el.teleclone.utils.APP_ACTIVITY
 import ka.el.teleclone.utils.hideKeyboard
 

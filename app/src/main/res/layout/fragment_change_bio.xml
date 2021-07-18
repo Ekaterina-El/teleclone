@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="@dimen/normal_margin"
-    tools:context=".ui.fragments.ChangeBioFragment">
+    tools:context=".ui.fragments.settings.ChangeBioFragment">
 
     <EditText
         android:id="@+id/change_bio"

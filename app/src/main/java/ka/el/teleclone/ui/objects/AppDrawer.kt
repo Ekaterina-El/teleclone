@@ -16,8 +16,8 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
 import com.mikepenz.materialdrawer.util.DrawerImageLoader
 import ka.el.teleclone.R
-import ka.el.teleclone.ui.fragments.ContactsFragment
-import ka.el.teleclone.ui.fragments.SettingsFragment
+import ka.el.teleclone.ui.fragments.contacts.ContactsFragment
+import ka.el.teleclone.ui.fragments.settings.SettingsFragment
 import ka.el.teleclone.utils.APP_ACTIVITY
 import ka.el.teleclone.database.USER
 import ka.el.teleclone.utils.downloadAndSetImage

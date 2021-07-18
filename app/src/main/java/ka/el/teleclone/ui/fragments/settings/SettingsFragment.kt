@@ -1,4 +1,4 @@
-package ka.el.teleclone.ui.fragments
+package ka.el.teleclone.ui.fragments.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -9,6 +9,7 @@ import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import ka.el.teleclone.R
 import ka.el.teleclone.database.*
+import ka.el.teleclone.ui.fragments.BaseFragment
 import ka.el.teleclone.utils.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 

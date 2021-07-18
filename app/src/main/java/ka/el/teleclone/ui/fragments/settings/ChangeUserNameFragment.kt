@@ -1,4 +1,4 @@
-package ka.el.teleclone.ui.fragments
+package ka.el.teleclone.ui.fragments.settings
 
 import ka.el.teleclone.R
 import ka.el.teleclone.database.*

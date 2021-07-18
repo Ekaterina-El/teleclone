@@ -1,4 +1,4 @@
-package ka.el.teleclone.ui.fragments
+package ka.el.teleclone.ui.fragments.contacts
 
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import ka.el.teleclone.R
 import ka.el.teleclone.database.*
 import ka.el.teleclone.models.CommonModel
+import ka.el.teleclone.ui.fragments.BaseFragment
 import ka.el.teleclone.ui.fragments.single_chat.SingleCharFragment
 import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.*
