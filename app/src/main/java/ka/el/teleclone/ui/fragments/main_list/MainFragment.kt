@@ -45,6 +45,10 @@ class MainFragment : Fragment(R.layout.fragment_main_list) {
                                 val mLastMessages = lastMessages.children.map { it.getCommonModel() }
                                 mUserInfo.last_message = mLastMessages[0].text
 
+                                if (mUserInfo.full_name.isEmpty()) {
+                                    mUserInfo.full_name = mUserInfo.phone_number
+                                }
+
                                 mAdapter.updateItem(mUserInfo)
                             })
                     })
