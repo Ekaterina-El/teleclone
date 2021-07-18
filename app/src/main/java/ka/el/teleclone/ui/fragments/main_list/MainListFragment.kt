@@ -8,7 +8,7 @@ import ka.el.teleclone.ui.objects.AppValueEventListener
 import ka.el.teleclone.utils.APP_ACTIVITY
 import kotlinx.android.synthetic.main.fragment_main_list.*
 
-class MainFragment : Fragment(R.layout.fragment_main_list) {
+class MainListFragment : Fragment(R.layout.fragment_main_list) {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainListAdapter
@@ -43,7 +43,7 @@ class MainFragment : Fragment(R.layout.fragment_main_list) {
                         refMessages.child(mMainListItem.id).limitToLast(1)
                             .addListenerForSingleValueEvent(AppValueEventListener { lastMessages ->
                                 val mLastMessages = lastMessages.children.map { it.getCommonModel() }
-                                mUserInfo.last_message = mLastMessages[0].text
+                                mUserInfo.last_message = if (mLastMessages.size != 0) mLastMessages[0].text else "Чат очищен"
 
                                 if (mUserInfo.full_name.isEmpty()) {
                                     mUserInfo.full_name = mUserInfo.phone_number

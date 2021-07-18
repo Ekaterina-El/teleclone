@@ -19,6 +19,7 @@ import ka.el.teleclone.database.*
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.models.User
 import ka.el.teleclone.ui.fragments.BaseFragment
+import ka.el.teleclone.ui.fragments.main_list.MainListFragment
 import ka.el.teleclone.ui.fragments.message_recycler_view.views.AppViewFactory
 import ka.el.teleclone.ui.objects.AppChildEventListener
 import ka.el.teleclone.ui.objects.AppValueEventListener
@@ -79,6 +80,16 @@ class SingleCharFragment(private val contact: CommonModel) :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.chat_menu_clear -> clearChat(contact.id) {
+                showToast("Чат очищен")
+                replaceFragment(MainListFragment())
+            }
+            R.id.chat_menu_delete -> deleteChat(contact.id) {
+                showToast("Чат удален")
+                replaceFragment(MainListFragment())
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 

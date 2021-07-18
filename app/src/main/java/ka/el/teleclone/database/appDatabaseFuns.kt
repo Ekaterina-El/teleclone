@@ -291,7 +291,8 @@ fun getMessageKey(receiverId: String) =
 
 
 fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
-    REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl).getFile(mFile).addOnCompleteListener { function() }
+    REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl).getFile(mFile)
+        .addOnCompleteListener { function() }
 }
 
 fun saveToMainList(receiverId: String, type: String) {
@@ -311,4 +312,23 @@ fun saveToMainList(receiverId: String, type: String) {
     forUpdate[refReceiver] = mapReceiver
 
     REF_DATABASE_ROOT.updateChildren(forUpdate)
+}
+
+fun deleteChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(UID).child(id)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener { function() }
+}
+
+fun clearChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_MESSAGES).child(UID).child(id)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            REF_DATABASE_ROOT.child(NODE_MESSAGES).child(id).child(UID)
+                .removeValue()
+                .addOnFailureListener { showToast(it.message.toString()) }
+                .addOnSuccessListener { function() }
+        }
 }

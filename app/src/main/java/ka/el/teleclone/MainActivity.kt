@@ -12,7 +12,7 @@ import ka.el.teleclone.database.initContacts
 import ka.el.teleclone.database.initFirebase
 import ka.el.teleclone.database.initUser
 import ka.el.teleclone.databinding.ActivityMainBinding
-import ka.el.teleclone.ui.fragments.main_list.MainFragment
+import ka.el.teleclone.ui.fragments.main_list.MainListFragment
 import ka.el.teleclone.ui.fragments.registration.EnterPhoneFragment
 import ka.el.teleclone.ui.objects.AppDrawer
 import ka.el.teleclone.utils.*
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()
-            replaceFragment(MainFragment(), false)
+            replaceFragment(MainListFragment(), false)
         } else {
             replaceFragment(EnterPhoneFragment(), false)
         }
