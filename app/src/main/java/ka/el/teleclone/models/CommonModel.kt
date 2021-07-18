@@ -14,6 +14,8 @@ data class CommonModel(
     val timestamp: Any = "",
     val type: String = "",
     val file_url: String = "empty",
+
+    var last_message: String = "",
 ) {
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == this.id

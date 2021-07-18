@@ -12,7 +12,7 @@ import ka.el.teleclone.database.initContacts
 import ka.el.teleclone.database.initFirebase
 import ka.el.teleclone.database.initUser
 import ka.el.teleclone.databinding.ActivityMainBinding
-import ka.el.teleclone.ui.fragments.MainFragment
+import ka.el.teleclone.ui.fragments.main_list.MainFragment
 import ka.el.teleclone.ui.fragments.registration.EnterPhoneFragment
 import ka.el.teleclone.ui.objects.AppDrawer
 import ka.el.teleclone.utils.*
