@@ -9,7 +9,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import ka.el.teleclone.R
 import ka.el.teleclone.models.CommonModel
 import ka.el.teleclone.ui.fragments.message_recycler_view.views.MessageView
+import ka.el.teleclone.ui.fragments.single_chat.SingleCharFragment
 import ka.el.teleclone.utils.downloadAndSetImage
+import ka.el.teleclone.utils.replaceFragment
 import kotlinx.android.synthetic.main.main_list_item.view.*
 
 class MainListAdapter: RecyclerView.Adapter<MainListAdapter.MainListViewHolder>() {
@@ -25,7 +27,13 @@ class MainListAdapter: RecyclerView.Adapter<MainListAdapter.MainListViewHolder>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
-        return MainListViewHolder(view)
+
+        val holder = MainListViewHolder(view)
+        holder.itemView.setOnClickListener {
+            replaceFragment(SingleCharFragment(mListItems[holder.adapterPosition]))
+        }
+
+        return holder
     }
 
     override fun onBindViewHolder(holder: MainListViewHolder, position: Int) {
